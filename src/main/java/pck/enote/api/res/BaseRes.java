@@ -1,8 +1,9 @@
 package pck.enote.api.res;
 
-import pck.enote.api.helper.REQUEST_TYPE;
 
-public class BaseRes {
+import pck.enote.api.req.REQUEST_TYPE;
+
+public abstract class BaseRes {
     protected RESPONSE_STATUS status;
     protected String msg;
     protected REQUEST_TYPE type;
@@ -35,5 +36,21 @@ public class BaseRes {
 
     public void setType(REQUEST_TYPE type) {
         this.type = type;
+    }
+
+    /**
+     * Help packed Response data to format "key1:value1;key2:value2;....."
+     *
+     * @return packed response
+     */
+    abstract public String getPackedRes();
+
+    @Override
+    public String toString() {
+        return "BaseRes{" +
+                "status=" + status +
+                ", msg='" + msg + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

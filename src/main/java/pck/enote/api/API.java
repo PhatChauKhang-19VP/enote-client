@@ -1,16 +1,17 @@
 package pck.enote.api;
 
-import pck.enote.api.helper.StructClass;
+import pck.enote.api.req.SendFileReq;
 import pck.enote.api.req.TestConnectionReq;
+import pck.enote.api.res.SendFileRes;
 import pck.enote.api.res.TestConnectionRes;
 import pck.enote.be.Server;
 import pck.enote.be.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 
 public class API {
     private static final Server server = Server.getInstance();
@@ -30,6 +31,18 @@ public class API {
 
         String packedRes = dataIn.readUTF();
         return new TestConnectionRes(packedRes);
+    }
+
+    public static SendFileRes sendFile(File file) throws IOException {
+        Socket socket = new Socket(server.getIP(), server.getPort());
+        DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+        SendFileReq req = new SendFileReq(file);
+        dataOut.writeUTF(req.getPackedReq());
+
+        DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+
+        String packedRes = dataIn.readUTF();
+        return new SendFileRes(packedRes);
     }
 
 //    public static HashMap<String, String> login(User user) throws IOException {
