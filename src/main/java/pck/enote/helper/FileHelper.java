@@ -1,7 +1,6 @@
 package pck.enote.helper;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 
 public class FileHelper {
     public static byte[] getFileBuffer(File file) {
@@ -19,5 +18,14 @@ public class FileHelper {
             e.printStackTrace();
             return bFile;
         }
+    }
+
+    public static File getFileFromBuffer(byte[] buffer) throws IOException {
+        File file = new File("tempFile");
+        OutputStream os = new FileOutputStream(file);
+
+        os.write(buffer);
+        os.close();
+        return file;
     }
 }
