@@ -12,4 +12,7 @@ module pck.enoteclient {
 
     opens pck.enote to javafx.fxml;
     exports pck.enote;
+
+    opens pck.enote.controller to javafx.fxml;
+    exports pck.enote.controller;
 }
