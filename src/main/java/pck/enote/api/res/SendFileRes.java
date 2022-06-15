@@ -3,7 +3,7 @@ package pck.enote.api.res;
 import pck.enote.api.req.REQUEST_TYPE;
 
 public class SendFileRes extends BaseRes {
-    private String fileUrl;
+    private final String fileUrl;
 
     private SendFileRes(RESPONSE_STATUS status, String msg) {
         super(status, msg, REQUEST_TYPE.UPLOAD);

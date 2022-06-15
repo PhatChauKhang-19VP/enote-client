@@ -3,13 +3,10 @@ package pck.enote.api.req;
 import pck.enote.helper.FileHelper;
 
 import java.io.File;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 
 public class SendFileReq extends BaseReq {
-    private String filename;
-    private byte[] buffer;
+    private final String filename;
+    private final byte[] buffer;
 
     public SendFileReq(File file) {
         super(REQUEST_TYPE.UPLOAD);

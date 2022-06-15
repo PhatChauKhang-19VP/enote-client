@@ -1,6 +1,5 @@
 package pck.enote.api.res;
 
-
 import pck.enote.api.req.REQUEST_TYPE;
 
 public abstract class BaseRes {
