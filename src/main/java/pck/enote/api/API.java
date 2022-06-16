@@ -69,7 +69,6 @@ public class API {
                     dataOut.write(sendFileRes.getBuffer());
 
                     //* read data from server
-
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
 
                     if (resType != reqType){

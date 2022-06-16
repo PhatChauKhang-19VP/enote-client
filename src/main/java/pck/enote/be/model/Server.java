@@ -1,4 +1,4 @@
-package pck.enote.be;
+package pck.enote.be.model;
 
 public class Server {
     private static Server instance;
