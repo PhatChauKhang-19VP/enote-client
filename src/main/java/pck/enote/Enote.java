@@ -49,7 +49,8 @@ public class Enote extends Application {
         try {
             stage = primaryStage;
 
-            gotoLogin();
+//            gotoSignInPage();
+            gotoSignUpPage();
 
             primaryStage.show();
         } catch (Exception ex) {
@@ -57,9 +58,17 @@ public class Enote extends Application {
         }
     }
 
-    public void gotoLogin() {
+    public void gotoSignInPage() {
         try {
-            replaceSceneContent("loginPage.fxml");
+            replaceSceneContent("signInPage.fxml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

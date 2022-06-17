@@ -6,17 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import pck.enote.api.API;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginPageController implements Initializable {
+public class SignInPageController implements Initializable {
     public TextField usernameField;
     public PasswordField passwordField;
 
     public Label passwordWarningField;
     public Label usernameWarningField;
+    public Label succesAlert;
 
     public Button loginButton;
 
@@ -29,15 +29,22 @@ public class LoginPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            checkUsernameValid(newValue);
+            if (newValue.matches(".*\\s")) {
+                newValue = oldValue;
+                usernameField.setText(newValue);
+            } else {
+                checkUsernameValid(newValue);
+                succesAlert.setVisible(false);
+            }
         });
 
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.matches(".*\\s")) {
+            if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
                 passwordField.setText(newValue);
             } else {
                 checkPasswordValid(newValue);
+                succesAlert.setVisible(false);
             }
         });
     }
@@ -103,15 +110,16 @@ public class LoginPageController implements Initializable {
     public void onLoginButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
             if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
+                succesAlert.setVisible(true);
                 System.out.println(usernameField.getText());
                 System.out.println(passwordField.getText());
             }
 
-            if (checkUsernameValid(usernameField.getText())) {
+            if (!checkUsernameValid(usernameField.getText())) {
                 new animatefx.animation.Shake(usernameField).play();
             }
 
-            if (checkPasswordValid(passwordField.getText())) {
+            if (!checkPasswordValid(passwordField.getText())) {
                 new animatefx.animation.Shake(passwordField).play();
             }
         }
