@@ -8,8 +8,8 @@ import pck.enote.api.res.BaseRes;
 import pck.enote.api.res.RESPONSE_STATUS;
 import pck.enote.api.res.SendFileRes;
 import pck.enote.api.res.TestConnectionRes;
-import pck.enote.be.Server;
 import pck.enote.be.User;
+import pck.enote.be.model.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -46,7 +46,7 @@ public class API {
 
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
 
-                    if (resType != reqType){
+                    if (resType != reqType) {
                         return null;
                     }
                     return new TestConnectionRes(
@@ -71,7 +71,7 @@ public class API {
                     //* read data from server
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
 
-                    if (resType != reqType){
+                    if (resType != reqType) {
                         return null;
                     }
 

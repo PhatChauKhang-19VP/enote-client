@@ -10,25 +10,18 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import pck.enote.helper.ScreenConfig;
 
-import java.util.Objects;
-
 import static javafx.application.Platform.exit;
 
 public class Enote extends Application {
-    private static Enote instance;
-    private Stage stage = null;
-    private FXMLLoader loader = null;
+    public static Stage stage = null;
+    public static FXMLLoader loader = null;
 
-    public Enote() {
-        instance = this;
+    public static Stage getStage() {
+        return stage;
     }
 
-    public static Enote getInstance() {
-        if (instance == null) {
-            instance = new Enote();
-        }
-
-        return instance;
+    public static FXMLLoader getLoader() {
+        return loader;
     }
 
     public static void main(String[] args) {
@@ -40,18 +33,36 @@ public class Enote extends Application {
         Platform.runLater(() -> {
             stage = primaryStage;
             try {
-                Parent parent = replaceSceneContent("hello-view.fxml", ScreenConfig.getWidth(), ScreenConfig.getHeight());
                 stage.getIcons().clear();
                 stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
                 stage.setTitle(ScreenConfig.getTitle());
                 stage.setResizable(false);
                 stage.setFullScreen(false);
+
+                // gotoSignInPage();
+                gotoSignUpPage();
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
             }
 
         });
+    }
+
+    public void gotoSignInPage() {
+        try {
+            replaceSceneContent("signInPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
