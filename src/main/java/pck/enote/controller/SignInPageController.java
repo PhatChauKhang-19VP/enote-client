@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import pck.enote.api.API;
+import pck.enote.api.req.SignInReq;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -109,10 +111,13 @@ public class SignInPageController implements Initializable {
 
     public void onLoginButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
-            if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
+
+            if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText()) || true) {
                 succesAlert.setVisible(true);
                 System.out.println(usernameField.getText());
                 System.out.println(passwordField.getText());
+
+                System.out.println(API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText())));
             }
 
             if (!checkUsernameValid(usernameField.getText())) {

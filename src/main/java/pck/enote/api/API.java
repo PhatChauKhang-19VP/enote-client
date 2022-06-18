@@ -1,14 +1,8 @@
 package pck.enote.api;
 
-import pck.enote.api.req.BaseReq;
-import pck.enote.api.req.REQUEST_TYPE;
-import pck.enote.api.req.SendFileReq;
-import pck.enote.api.req.TestConnectionReq;
-import pck.enote.api.res.BaseRes;
-import pck.enote.api.res.RESPONSE_STATUS;
-import pck.enote.api.res.SendFileRes;
-import pck.enote.api.res.TestConnectionRes;
-import pck.enote.be.User;
+import pck.enote.api.req.*;
+import pck.enote.api.res.*;
+import pck.enote.be.model.User;
 import pck.enote.be.model.Server;
 
 import java.io.DataInputStream;
@@ -34,7 +28,7 @@ public class API {
         try (
                 Socket socket = new Socket(server.getIP(), server.getPort());
                 DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-                DataInputStream dataIn = new DataInputStream(socket.getInputStream())
+                DataInputStream dataIn = new DataInputStream(socket.getInputStream());
         ) {
             REQUEST_TYPE reqType = req.getType();
 
@@ -54,6 +48,33 @@ public class API {
                             dataIn.readUTF()
                     );
                 }
+
+                case SIGN_IN -> {
+                    //* send sign in request to server
+                    SignInReq signInReq = (SignInReq) req;
+
+                    // write type
+                    dataOut.writeUTF(signInReq.getType().name());
+
+                    // write username:
+                    dataOut.writeUTF(signInReq.getUsername());
+
+                    // write password:
+                    dataOut.writeUTF(signInReq.getPassword());
+
+                    //* read data from server
+                    REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
+
+                    if (resType != reqType) {
+                        return null;
+                    }
+
+                    return new SignInRes(
+                            RESPONSE_STATUS.valueOf(dataIn.readUTF()),
+                            dataIn.readUTF()
+                    );
+                }
+
                 case UPLOAD -> {
                     //* send data to server
                     SendFileReq sendFileRes = (SendFileReq) req;
