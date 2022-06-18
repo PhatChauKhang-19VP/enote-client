@@ -39,8 +39,8 @@ public class Enote extends Application {
                 stage.setResizable(false);
                 stage.setFullScreen(false);
 
-                // gotoSignInPage();
-                gotoSignUpPage();
+                 gotoSignInPage();
+//                gotoSignUpPage();
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
@@ -57,7 +57,7 @@ public class Enote extends Application {
         }
     }
 
-    public void gotoSignUpPage() {
+    public static void gotoSignUpPage() {
         try {
             replaceSceneContent("signUpPage.fxml", 600, 600);
         } catch (Exception ex) {
@@ -65,12 +65,12 @@ public class Enote extends Application {
         }
     }
 
-    public Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml), null, new JavaFXBuilderFactory());
+    public static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Enote.class.getResource(fxml), null, new JavaFXBuilderFactory());
 
         Parent page = loader.load();
 
-        this.loader = loader;
+        Enote.loader = loader;
 
         Scene scene = stage.getScene();
         if (scene == null) {
