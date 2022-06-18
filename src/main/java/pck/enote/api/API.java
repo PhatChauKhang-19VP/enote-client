@@ -2,7 +2,7 @@ package pck.enote.api;
 
 import pck.enote.api.req.*;
 import pck.enote.api.res.*;
-import pck.enote.be.User;
+import pck.enote.be.model.User;
 import pck.enote.be.model.Server;
 
 import java.io.DataInputStream;
@@ -28,7 +28,7 @@ public class API {
         try (
                 Socket socket = new Socket(server.getIP(), server.getPort());
                 DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-                DataInputStream dataIn = new DataInputStream(socket.getInputStream())
+                DataInputStream dataIn = new DataInputStream(socket.getInputStream());
         ) {
             REQUEST_TYPE reqType = req.getType();
 
