@@ -14,6 +14,7 @@ import static javafx.application.Platform.exit;
 
 public class Enote extends Application {
     public static Stage stage = null;
+
     public static FXMLLoader loader = null;
 
     public static Stage getStage() {
@@ -26,43 +27,6 @@ public class Enote extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        Platform.runLater(() -> {
-            stage = primaryStage;
-            try {
-                stage.getIcons().clear();
-                stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
-                stage.setTitle(ScreenConfig.getTitle());
-                stage.setResizable(false);
-                stage.setFullScreen(false);
-
-                 gotoSignInPage();
-//                gotoSignUpPage();
-            } catch (Exception e) {
-                e.printStackTrace();
-                exit();
-            }
-
-        });
-    }
-
-    public void gotoSignInPage() {
-        try {
-            replaceSceneContent("signInPage.fxml", 600, 600);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void gotoSignUpPage() {
-        try {
-            replaceSceneContent("signUpPage.fxml", 600, 600);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     public static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
@@ -83,5 +47,42 @@ public class Enote extends Application {
         stage.sizeToScene();
         stage.show();
         return page;
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Platform.runLater(() -> {
+            stage = primaryStage;
+            try {
+                stage.getIcons().clear();
+                stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
+                stage.setTitle(ScreenConfig.getTitle());
+                stage.setResizable(false);
+                stage.setFullScreen(false);
+
+                gotoSignInPage();
+                // gotoSignUpPage();
+            } catch (Exception e) {
+                e.printStackTrace();
+                exit();
+            }
+
+        });
+    }
+
+    public static void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void gotoSignInPage() {
+        try {
+            replaceSceneContent("signInPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
