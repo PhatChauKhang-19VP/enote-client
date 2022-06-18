@@ -10,44 +10,20 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import pck.enote.helper.ScreenConfig;
 
-import java.util.Objects;
-
 import static javafx.application.Platform.exit;
 
 public class Enote extends Application {
-    private static Enote instance;
-    private Stage stage = null;
-    private FXMLLoader loader = null;
+    public static Stage stage = null;
+    public static FXMLLoader loader = null;
 
-    public Enote() {
-        instance = this;
-    }
-    
-    // getters and setters
-    public static Enote getInstance() {
-        if (instance == null) {
-            instance = new Enote();
-        }
-
-        return instance;
-    }
-
-    public Stage getStage() {
+    public static Stage getStage() {
         return stage;
     }
 
-    public FXMLLoader getLoader() {
+    public static FXMLLoader getLoader() {
         return loader;
     }
 
-    //    @Override
-//    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(Enote.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
     public static void main(String[] args) {
         launch();
     }
@@ -64,7 +40,7 @@ public class Enote extends Application {
                 stage.setFullScreen(false);
 
                 // gotoSignInPage();
-                gotoSignUpPage();    
+                gotoSignUpPage();
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
