@@ -22,7 +22,8 @@ public class Enote extends Application {
     public Enote() {
         instance = this;
     }
-
+    
+    // getters and setters
     public static Enote getInstance() {
         if (instance == null) {
             instance = new Enote();
@@ -31,6 +32,22 @@ public class Enote extends Application {
         return instance;
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public FXMLLoader getLoader() {
+        return loader;
+    }
+
+    //    @Override
+//    public void start(Stage stage) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(Enote.class.getResource("hello-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+//        stage.setTitle("Hello!");
+//        stage.setScene(scene);
+//        stage.show();
+//    }
     public static void main(String[] args) {
         launch();
     }
@@ -40,18 +57,36 @@ public class Enote extends Application {
         Platform.runLater(() -> {
             stage = primaryStage;
             try {
-                Parent parent = replaceSceneContent("hello-view.fxml", ScreenConfig.getWidth(), ScreenConfig.getHeight());
                 stage.getIcons().clear();
                 stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
                 stage.setTitle(ScreenConfig.getTitle());
                 stage.setResizable(false);
                 stage.setFullScreen(false);
+
+                // gotoSignInPage();
+                gotoSignUpPage();    
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
             }
 
         });
+    }
+
+    public void gotoSignInPage() {
+        try {
+            replaceSceneContent("signInPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
