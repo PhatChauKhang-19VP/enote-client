@@ -10,64 +10,66 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
-            fx:controller="pck.enote.controller.SignUpPageController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignUpPageController">
     <children>
-        <Pane layoutX="100.0" layoutY="70.0" prefHeight="465.0" prefWidth="400.0">
+        <Pane layoutX="100.0" layoutY="34.0" prefHeight="535.0" prefWidth="400.0">
             <children>
-                <Pane layoutX="55.0" layoutY="65.0" prefHeight="400.0" prefWidth="290.0"
-                      style="-fx-background-color: #ebebeb;">
+                <Pane layoutX="55.0" layoutY="65.0" prefHeight="470.0" prefWidth="290.0" style="-fx-background-color: #ebebeb;">
                     <children>
-                        <Pane layoutY="84.0" prefHeight="110.0">
+                        <Pane layoutY="60.0" prefHeight="110.0">
                             <children>
-                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Tên đăng nhập (*)"/>
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Tên đăng nhập (*)" />
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/002-user_va1jxm.png"/>
+                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/002-user_va1jxm.png" />
                                     </image>
                                 </ImageView>
-                                <TextField fx:id="usernameField" layoutX="60.0" layoutY="40.0" maxWidth="210.0"
-                                           prefHeight="32.0" prefWidth="210.0" promptText="Nhập tên đăng nhập..."
-                                           style="-fx-font-size: 16;"/>
-                                <Label fx:id="usernameWarningField" layoutX="22.0" layoutY="83.0"
-                                       style="-fx-font-size: 16;" text=""/>
+                                <TextField fx:id="usernameField" layoutX="60.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập tên đăng nhập..." style="-fx-font-size: 16;" />
+                                <Label fx:id="usernameWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
                             </children>
                             <padding>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </padding>
                         </Pane>
-                        <Pane layoutY="200.0" prefHeight="110.0">
+                        <Pane layoutY="170.0" prefHeight="110.0">
                             <children>
-                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Mật khẩu (*)"/>
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Mật khẩu (*)" />
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png"/>
+                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png" />
                                     </image>
                                 </ImageView>
-                                <PasswordField fx:id="passwordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0"
-                                               prefWidth="210.0" promptText="Nhập mật khẩu..."
-                                               style="-fx-font-size: 16;"/>
-                                <Label fx:id="passwordWarningField" layoutX="22.0" layoutY="83.0"
-                                       style="-fx-font-size: 16;" text=""/>
+                                <PasswordField fx:id="passwordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập mật khẩu..." style="-fx-font-size: 16;" />
+                                <Label fx:id="passwordWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
                             </children>
                             <padding>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </padding>
                         </Pane>
-                        <Button fx:id="loginButton" layoutX="96.0" layoutY="330.0" mnemonicParsing="false"
-                                onAction="#onSignUpButtonClicked" style="-fx-font-size: 20;" text="Đăng ký"/>
-                        <Label layoutX="91.0" layoutY="15.0" style="-fx-font-size: 30;" text="Đăng ký"/>
-                        <Label fx:id="succesAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0"
-                               layoutY="300.0" style="-fx-font-size: 16px; -fx-text-fill: green;" visible="false"
-                               text="Đăng ký thành công" textAlignment="CENTER"/>
+                  <Pane layoutY="280.0" prefHeight="110.0">
+                     <children>
+                        <Label layoutX="20.0" style="-fx-font-size: 20;" text="Xác nhận mật khẩu (*)" />
+                        <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png" />
+                           </image>
+                        </ImageView>
+                        <PasswordField fx:id="confirmPasswordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập mật khẩu..." style="-fx-font-size: 16;" />
+                        <Label fx:id="confirmPassWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
+                     </children>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Pane>
+                        <Button fx:id="loginButton" layoutX="96.0" layoutY="410.0" mnemonicParsing="false" onAction="#onSignUpButtonClicked" style="-fx-font-size: 20;" text="Đăng ký" />
+                        <Label layoutX="91.0" layoutY="10.0" style="-fx-font-size: 30;" text="Đăng ký" />
                     </children>
                     <padding>
-                        <Insets bottom="20.0"/>
+                        <Insets bottom="20.0" />
                     </padding>
                 </Pane>
-                <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note"/>
+                <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note" />
+                  <Label fx:id="succesAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="440.0" style="-fx-font-size: 16px; -fx-text-fill: green;" text="Đăng ký thành công" textAlignment="CENTER" visible="false" />
             </children>
         </Pane>
     </children>

@@ -61,6 +61,24 @@ public class API {
 
                     // write password:
                     dataOut.writeUTF(signInReq.getPassword());
+                     return new SignInRes(
+                        RESPONSE_STATUS.valueOf(dataIn.readUTF()),
+                            dataIn.readUTF()
+                    );
+                }
+                
+                case SIGN_UP -> {
+                    //* send sign in request to server
+                    SignUpReq signUpReq = (SignUpReq) req;
+
+                    // write type
+                    dataOut.writeUTF(signUpReq.getType().name());
+
+                    // write username:
+                    dataOut.writeUTF(signUpReq.getUsername());
+
+                    // write password:
+                    dataOut.writeUTF(signUpReq.getPassword());
 
                     //* read data from server
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
@@ -68,8 +86,8 @@ public class API {
                     if (resType != reqType) {
                         return null;
                     }
-
-                    return new SignInRes(
+                    
+                    return new SignUpRes(
                             RESPONSE_STATUS.valueOf(dataIn.readUTF()),
                             dataIn.readUTF()
                     );
