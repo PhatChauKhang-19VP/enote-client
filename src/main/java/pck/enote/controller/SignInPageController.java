@@ -1,5 +1,6 @@
 package pck.enote.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -7,7 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import pck.enote.api.API;
+import pck.enote.api.req.REQUEST_TYPE;
 import pck.enote.api.req.SignInReq;
+import pck.enote.api.res.BaseRes;
+import pck.enote.api.res.RESPONSE_STATUS;
+import pck.enote.api.res.SignInRes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -112,12 +117,44 @@ public class SignInPageController implements Initializable {
     public void onLoginButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
 
-            if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText()) || true) {
-                succesAlert.setVisible(true);
+            if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
                 System.out.println(usernameField.getText());
                 System.out.println(passwordField.getText());
 
-                System.out.println(API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText())));
+                BaseRes res = API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText()));
+                if (res.getType() != REQUEST_TYPE.SIGN_IN) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(errorMessage);
+                    succesAlert.setText(res.getMsg());
+                    succesAlert.setVisible(true);
+                    return;
+                }
+
+                SignInRes signInRes = (SignInRes) res;
+                if(signInRes.getStatus() ==  RESPONSE_STATUS.FAILED) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(errorMessage);
+                    succesAlert.setText(signInRes.getMsg());
+                    succesAlert.setVisible(true);
+                    return;
+                }
+
+                if(signInRes.getStatus() ==  RESPONSE_STATUS.SUCCESS) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(successMessage);
+                    succesAlert.setText(signInRes.getMsg());
+                    succesAlert.setVisible(true);
+
+                    Platform.runLater(()->{
+                        try {
+                            Thread.sleep(2000);
+                            pck.enote.Enote.gotoSignUpPage();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    return;
+                }
             }
 
             if (!checkUsernameValid(usernameField.getText())) {
