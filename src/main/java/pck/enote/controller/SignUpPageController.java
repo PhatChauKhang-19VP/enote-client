@@ -2,10 +2,7 @@ package pck.enote.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import pck.enote.api.API;
 import pck.enote.api.req.SignUpReq;
 
@@ -24,6 +21,7 @@ public class SignUpPageController implements Initializable {
     public Label succesAlert;
 
     public Button loginButton;
+    public Hyperlink signInHyperLink;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -161,8 +159,6 @@ public class SignUpPageController implements Initializable {
                     && checkConfirmPasswordValid(confirmPasswordField.getText())
             ) {
                 succesAlert.setVisible(true);
-                System.out.println(usernameField.getText());
-                System.out.println(passwordField.getText());
                 System.out.println(confirmPassWarningField.getText());
 
                 System.out.println(API.sendReq(new SignUpReq(usernameField.getText(), passwordField.getText())));
@@ -179,6 +175,12 @@ public class SignUpPageController implements Initializable {
             if (!checkConfirmPasswordValid(confirmPasswordField.getText())) {
                 new animatefx.animation.Shake(confirmPasswordField).play();
             }
+        }
+    }
+
+    public void onSignInHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == signInHyperLink) {
+            pck.enote.Enote.gotoSignInPage();
         }
     }
 }
