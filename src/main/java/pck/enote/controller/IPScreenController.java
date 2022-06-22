@@ -104,8 +104,7 @@ public class IPScreenController implements Initializable {
     public void onConnectButtonClicked(ActionEvent ae) {
         if (ae.getSource() == connectButton) {
             if (checkIPValid(ipField.getText()) && checkPortValid(portField.getText())) {
-                System.out.println(ipField.getText());
-                System.out.println(portField.getText());
+                pck.enote.Enote.gotoSignInPage();
             }
         }
 
