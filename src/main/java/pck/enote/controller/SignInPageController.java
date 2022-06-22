@@ -122,6 +122,7 @@ public class SignInPageController implements Initializable {
                 System.out.println(passwordField.getText());
 
                 BaseRes res = API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText()));
+                assert res != null;
                 if (res.getType() != REQUEST_TYPE.SIGN_IN) {
                     //show noti login fail w msg:
                     succesAlert.setStyle(errorMessage);
