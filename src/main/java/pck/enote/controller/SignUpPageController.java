@@ -22,6 +22,7 @@ public class SignUpPageController implements Initializable {
 
     public Button loginButton;
     public Hyperlink signInHyperLink;
+    public Hyperlink connectHyperLink;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -181,6 +182,12 @@ public class SignUpPageController implements Initializable {
     public void onSignInHyperLinkClicked(ActionEvent ae) {
         if(ae.getSource() == signInHyperLink) {
             pck.enote.Enote.gotoSignInPage();
+        }
+    }
+
+    public void onConnectHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == connectHyperLink) {
+            pck.enote.Enote.gotoConnectScreen();
         }
     }
 }
