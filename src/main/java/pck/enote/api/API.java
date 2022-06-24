@@ -4,12 +4,14 @@ import pck.enote.api.req.*;
 import pck.enote.api.res.*;
 import pck.enote.be.model.User;
 import pck.enote.be.model.Server;
+import pck.enote.fe.model.Note;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
 
 /**
  * API class for client
@@ -127,6 +129,41 @@ public class API {
                             dataIn.readUTF()
                     );
                 }
+
+                case GET_NOTE_LIST -> {
+                    //* send data to server
+                    GetNoteListReq getNoteListReq = (GetNoteListReq) req;
+                    // write type:
+                    dataOut.writeUTF(getNoteListReq.getType().name());
+                    // write filename:
+                    dataOut.writeUTF(getNoteListReq.getUsername());
+
+                    //* read data from server
+                    REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
+
+                    if (resType != reqType) {
+                        return null;
+                    }
+                    RESPONSE_STATUS status = RESPONSE_STATUS.valueOf(dataIn.readUTF());
+                    String msg = dataIn.readUTF();
+                    int size = dataIn.readInt();
+
+                    HashMap<Integer, Note> noteList = new HashMap<>();
+                    for (int i = 0; i < size; i++) {
+                        Integer id = dataIn.readInt();
+                        String type = dataIn.readUTF(),
+                                uri = dataIn.readUTF(),
+                                createdAt = dataIn.readUTF();
+                        noteList.put(id, new Note(id, type, uri, createdAt));
+                    }
+
+                    return new GetNoteListRes(
+                            status,
+                            msg,
+                            noteList
+                    );
+                }
+
                 default -> {
                     return null;
                 }
