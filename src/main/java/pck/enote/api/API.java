@@ -2,7 +2,6 @@ package pck.enote.api;
 
 import pck.enote.api.req.*;
 import pck.enote.api.res.*;
-import pck.enote.be.model.User;
 import pck.enote.be.model.Server;
 import pck.enote.fe.model.Note;
 
@@ -11,7 +10,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.HashMap;
+
+import static javafx.application.Platform.exit;
 
 /**
  * API class for client
@@ -19,19 +21,75 @@ import java.util.HashMap;
  */
 public class API {
     private static final Server server = Server.getInstance();
+    static DataOutputStream dataOut = null;
+    static DataInputStream dataIn = null;
+    private static Socket socket = null;
 
     public static void main(String[] args) throws IOException {
-        User u = new User("phat", "123");
-        System.out.println(testConnection());
+//        User u = new User("phat", "123");
+//        System.out.println(testConnection());
+        connectToServer();
+        //System.out.println(sendReq(new GetNoteListReq("phat1")));
+        System.out.println(sendReq(new GetNoteReq("phat", 1)));
+
+    }
+
+    /**
+     * just for testing if server is alive
+     *
+     * @return Server Response
+     */
+    public static TestConnectionRes testConnection() throws IOException {
+        Socket socket = new Socket(server.getIP(), server.getPort());
+
+        //* data to server
+        DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+        TestConnectionReq req = new TestConnectionReq();
+        dataOut.writeUTF(req.getType().name());
+
+        //* data from server
+        DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+
+        //todo:
+        return null;
+    }
+
+    public static boolean connectToServer() {
+        try {
+            server.setSocket(new Socket(server.getIP(), server.getPort()));
+            socket = Server.getInstance().getSocket();
+
+            server.setDataIn(new DataInputStream(socket.getInputStream()));
+            dataIn = Server.getInstance().getDataIn();
+
+            server.setDataOut(new DataOutputStream(socket.getOutputStream()));
+            dataOut = server.getDataOut();
+
+            BaseRes testConnectionReq = sendReq(new TestConnectionReq());
+
+            assert testConnectionReq != null;
+            if (testConnectionReq.getStatus() == RESPONSE_STATUS.SUCCESS) {
+                return true;
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            socket = null;
+            return false;
+        }
     }
 
     public static BaseRes sendReq(BaseReq req) {
+        System.out.println(socket);
+        System.out.println(dataOut);
+        try {
 
-        try (
-                Socket socket = new Socket(server.getIP(), server.getPort());
-                DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-                DataInputStream dataIn = new DataInputStream(socket.getInputStream());
-        ) {
+            if (server == null) {
+                System.out.println("CANNOT CONNECT TO SERVER !!! APPLICATION WILL EXIT");
+
+                //todo: goto IP config screen else [exit]
+                exit();
+            }
             REQUEST_TYPE reqType = req.getType();
 
             switch (reqType) {
@@ -63,6 +121,7 @@ public class API {
 
                     // write password:
                     dataOut.writeUTF(signInReq.getPassword());
+                    dataOut.flush();
 
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
 
@@ -70,8 +129,8 @@ public class API {
                         return null;
                     }
 
-                     return new SignInRes(
-                        RESPONSE_STATUS.valueOf(dataIn.readUTF()),
+                    return new SignInRes(
+                            RESPONSE_STATUS.valueOf(dataIn.readUTF()),
                             dataIn.readUTF()
                     );
                 }
@@ -164,10 +223,70 @@ public class API {
                     );
                 }
 
+                case GET_NOTE -> {
+                    //* send data to server
+                    GetNoteReq getNoteReq = (GetNoteReq) req;
+                    // write type:
+                    dataOut.writeUTF(getNoteReq.getType().name());
+                    // write filename:
+                    dataOut.writeUTF(getNoteReq.getUsername());
+                    // write note id:
+                    dataOut.writeInt(getNoteReq.getNoteId());
+
+                    //* read data from server
+                    REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
+
+                    if (resType != reqType) {
+                        return null;
+                    }
+                    RESPONSE_STATUS status = RESPONSE_STATUS.valueOf(dataIn.readUTF());
+                    String msg = dataIn.readUTF();
+
+                    Note note = new Note(
+                            dataIn.readInt(),
+                            dataIn.readUTF(),
+                            dataIn.readUTF(),
+                            dataIn.readUTF()
+                    );
+
+                    // get file content
+                    Integer length = dataIn.readInt();
+                    byte[] buffer = null;
+                    if (length > 0) {
+                        buffer = new byte[length];
+                        dataIn.readFully(buffer, 0, buffer.length);
+                    }
+                    System.out.println(Arrays.toString(buffer));
+
+                    // random file name
+//                    int leftLimit = 97; // letter 'a'
+//                    int rightLimit = 122; // letter 'z'
+//                    int targetStringLength = 10;
+//                    Random random = new Random();
+//                    StringBuilder tmp = new StringBuilder(targetStringLength);
+//                    for (int i = 0; i < targetStringLength; i++) {
+//                        int randomLimitedInt = leftLimit + (int)
+//                                (random.nextFloat() * (rightLimit - leftLimit + 1));
+//                        tmp.append((char) randomLimitedInt);
+//                    }
+//                    String filename = tmp.toString();
+                    // save the file
+//                    try (FileOutputStream fos = new FileOutputStream(filename)) {
+//                        fos.write(buffer);
+//                    }
+
+                    return new GetNoteRes(
+                            status,
+                            msg,
+                            note
+                    );
+                }
+
                 default -> {
                     return null;
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -175,31 +294,10 @@ public class API {
         }
     }
 
-    /**
-     * just for testing if server is alive
-     *
-     * @return Server Response
-     */
-    public static TestConnectionRes testConnection() throws IOException {
-        Socket socket = new Socket(server.getIP(), server.getPort());
-
-        //* data to server
-        DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-        TestConnectionReq req = new TestConnectionReq();
-        dataOut.writeUTF(req.getType().name());
-
-        //* data from server
-        DataInputStream dataIn = new DataInputStream(socket.getInputStream());
-
-        //todo:
-        return null;
-    }
-
     public static SendFileRes sendFile(File file) throws IOException {
         Socket socket = new Socket(server.getIP(), server.getPort());
 
         //* data to server
-        DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
         SendFileReq req = new SendFileReq(file);
 
         SendFileRes res = (SendFileRes) sendReq(req);
@@ -208,4 +306,5 @@ public class API {
 
         return res;
     }
+
 }

@@ -1,5 +1,9 @@
 package pck.enote.be.model;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
 public class Server {
     private static Server instance;
     private String IP = "127.0.0.1";

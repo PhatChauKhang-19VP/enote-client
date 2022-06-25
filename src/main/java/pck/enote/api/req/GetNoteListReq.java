@@ -11,4 +11,12 @@ public class GetNoteListReq extends BaseReq {
     public String getUsername() {
         return username;
     }
+
+    @Override
+    public String toString() {
+        return "GetNoteListReq{" +
+                "username='" + username + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }
