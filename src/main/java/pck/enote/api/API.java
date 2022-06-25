@@ -10,7 +10,6 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import static javafx.application.Platform.exit;
@@ -256,8 +255,6 @@ public class API {
                         buffer = new byte[length];
                         dataIn.readFully(buffer, 0, buffer.length);
                     }
-                    System.out.println(Arrays.toString(buffer));
-
                     // random file name
 //                    int leftLimit = 97; // letter 'a'
 //                    int rightLimit = 122; // letter 'z'
