@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignUpPageController">
+<AnchorPane prefHeight="650.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignUpPageController">
     <children>
-        <Pane layoutX="100.0" layoutY="10.0" prefHeight="570.0" prefWidth="400.0">
+        <Pane layoutX="100.0" layoutY="60.0" prefHeight="570.0" prefWidth="400.0">
             <children>
-                <Pane layoutX="55.0" layoutY="65.0" prefHeight="500.0" prefWidth="290.0" style="-fx-background-color: #ebebeb;">
+                <Pane layoutX="55.0" layoutY="65.0" prefHeight="500.0" prefWidth="290.0" style="-fx-background-color: FAF1C1;">
                     <children>
                         <Pane layoutY="60.0" prefHeight="110.0">
                             <children>
@@ -66,7 +66,7 @@
                         <Label layoutX="91.0" layoutY="10.0" style="-fx-font-size: 30;" text="Đăng ký" />
                   <Pane layoutY="470.0" prefHeight="25.0" prefWidth="290.0">
                      <children>
-                        <Hyperlink fx:id="signInHyperLink" onAction="#onSignInHyperLinkClicked" layoutX="173.0" style="-fx-font-size: 14;" text="Đăng nhập" />
+                        <Hyperlink fx:id="signInHyperLink" layoutX="173.0" onAction="#onSignInHyperLinkClicked" style="-fx-font-size: 14;" text="Đăng nhập" />
                         <Label layoutX="53.0" style="-fx-font-size: 16;" text="Đã có tài khoản?" />
                      </children>
                   </Pane>
@@ -79,6 +79,20 @@
                   <Label fx:id="succesAlert" alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="440.0" style="-fx-font-size: 16px; -fx-text-fill: green;" text="Đăng ký thành công" textAlignment="CENTER" visible="false" />
             </children>
         </Pane>
-        <Hyperlink fx:id="connectHyperLink" onAction="#onConnectHyperLinkClicked" layoutX="526.0" layoutY="14.0" style="-fx-font-size: 16;" text="Kết nối" />
+      <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: FAF1C1;">
+         <children>
+             <Pane prefHeight="50.0" prefWidth="300.0">
+                 <children>
+                     <Label layoutX="10.0" layoutY="13.0" style="-fx-font-size: 16;" text="IP / Port:" />
+                     <Label fx:id="connectionInfo" layoutX="90.0" layoutY="12.0" style="-fx-font-size: 16;" />
+                 </children>
+             </Pane>
+            <Pane layoutX="300.0" prefHeight="50.0" prefWidth="300.0">
+               <children>
+                    <Hyperlink fx:id="connectHyperLink" layoutX="230.0" layoutY="9.0" onAction="#onConnectHyperLinkClicked" style="-fx-font-size: 16;" text="Kết nối" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

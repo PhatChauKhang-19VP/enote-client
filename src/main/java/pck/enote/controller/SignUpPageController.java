@@ -23,6 +23,7 @@ public class SignUpPageController implements Initializable {
     public Button loginButton;
     public Hyperlink signInHyperLink;
     public Hyperlink connectHyperLink;
+    public Label connectionInfo;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
