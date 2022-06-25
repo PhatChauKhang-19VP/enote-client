@@ -3,10 +3,7 @@ package pck.enote.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import pck.enote.api.API;
 import pck.enote.api.req.REQUEST_TYPE;
 import pck.enote.api.req.SignInReq;
@@ -26,6 +23,8 @@ public class SignInPageController implements Initializable {
     public Label succesAlert;
 
     public Button loginButton;
+    public Hyperlink signUpHyperLink;
+    public Hyperlink connectHyperLink;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -116,11 +115,7 @@ public class SignInPageController implements Initializable {
 
     public void onLoginButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
-
             if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
-                System.out.println(usernameField.getText());
-                System.out.println(passwordField.getText());
-
                 BaseRes res = API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText()));
                 assert res != null;
                 if (res.getType() != REQUEST_TYPE.SIGN_IN) {
@@ -168,6 +163,16 @@ public class SignInPageController implements Initializable {
         }
     }
 
+    public void onSignUpHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == signUpHyperLink) {
+            pck.enote.Enote.gotoSignUpPage();
+        }
+    }
 
+    public void onConnectHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == connectHyperLink) {
+            pck.enote.Enote.gotoConnectScreen();
+        }
+    }
 }
 

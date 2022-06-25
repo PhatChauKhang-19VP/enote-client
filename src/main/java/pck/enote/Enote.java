@@ -49,27 +49,6 @@ public class Enote extends Application {
         return page;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        Platform.runLater(() -> {
-            stage = primaryStage;
-            try {
-                stage.getIcons().clear();
-                stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
-                stage.setTitle(ScreenConfig.getTitle());
-                stage.setResizable(false);
-                stage.setFullScreen(false);
-
-                gotoSignInPage();
-                // gotoSignUpPage();
-            } catch (Exception e) {
-                e.printStackTrace();
-                exit();
-            }
-
-        });
-    }
-
     public static void gotoSignUpPage() {
         try {
             replaceSceneContent("signUpPage.fxml", 600, 600);
@@ -84,5 +63,35 @@ public class Enote extends Application {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void gotoConnectScreen() {
+        try {
+            replaceSceneContent("IPScreen.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Platform.runLater(() -> {
+            stage = primaryStage;
+            try {
+                stage.getIcons().clear();
+                stage.getIcons().add(new Image(ScreenConfig.getLogoPath()));
+                stage.setTitle(ScreenConfig.getTitle());
+                stage.setResizable(false);
+                stage.setFullScreen(false);
+
+//                gotoSignInPage();
+                // gotoSignUpPage();
+                gotoConnectScreen();
+            } catch (Exception e) {
+                e.printStackTrace();
+                exit();
+            }
+
+        });
     }
 }
