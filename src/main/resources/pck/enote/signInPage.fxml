@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
     <children>
-        <Pane layoutX="100.0" layoutY="40.0" prefHeight="500.0" prefWidth="400.0">
+        <Pane layoutX="100.0" layoutY="60.0" prefHeight="500.0" prefWidth="400.0">
             <children>
-                <Pane layoutX="55.0" layoutY="65.0" prefHeight="438.0" prefWidth="290.0" style="-fx-background-color: #ebebeb;">
+                <Pane layoutX="55.0" layoutY="65.0" prefHeight="438.0" prefWidth="290.0" style="-fx-background-color: FAF1C1;">
                     <children>
                         <Pane layoutY="84.0" prefHeight="110.0">
                             <children>
@@ -64,6 +64,17 @@
                 <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note" />
             </children>
         </Pane>
-      <Hyperlink fx:id="connectHyperLink" onAction="#onConnectHyperLinkClicked" layoutX="526.0" layoutY="14.0" style="-fx-font-size: 16;" text="Kết nối" />
+      <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: FAF1C1;">
+         <children>
+             <Pane prefHeight="50.0" prefWidth="300.0">
+                 <Label layoutX="9.0" layoutY="13.0" style="-fx-font-size: 16;" text="IP / Port:"/>
+                 <Label fx:id="connectionInfo" layoutX="90.0" layoutY="12.0" style="-fx-font-size: 16;"/>
+             </Pane>
+             <Pane layoutX="300.0" prefHeight="50.0" prefWidth="300.0">
+                 <Hyperlink fx:id="connectHyperLink" layoutX="230.0" layoutY="9.0" onAction="#onConnectHyperLinkClicked"
+                            style="-fx-font-size: 16;" text="Kết nối"/>
+             </Pane>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

@@ -67,7 +67,7 @@ public class Enote extends Application {
 
     public static void gotoConnectScreen() {
         try {
-            replaceSceneContent("IPScreen.fxml", 600, 600);
+            replaceSceneContent("IPScreen.fxml", 600, 650);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

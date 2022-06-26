@@ -14,7 +14,7 @@ public class IPScreenController implements Initializable {
     public TextField ipField;
     public Label ipWarningField;
 
-    public PasswordField portField;
+    public TextField portField;
     public Label portWarningField;
 
     public Button connectButton;
@@ -62,7 +62,7 @@ public class IPScreenController implements Initializable {
 
         if (!ip.matches(regex)) {
             ipField.setStyle(errorStyle);
-            ipWarningField.setText("Địa chỉ IP có dạng: (0-255).(0-255).(0.255).(0-255)!");
+            ipWarningField.setText("Địa chỉ IP có dạng: (0-255).(0-255).(0.255).(0-255) !");
             ipWarningField.setStyle(errorMessage);
 
             return false;

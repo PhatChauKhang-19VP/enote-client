@@ -25,6 +25,7 @@ public class SignInPageController implements Initializable {
     public Button loginButton;
     public Hyperlink signUpHyperLink;
     public Hyperlink connectHyperLink;
+    public Label connectionInfo;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -104,7 +105,6 @@ public class SignInPageController implements Initializable {
 
             return false;
         }
-
 
         passwordField.setStyle(successStyle);
         passwordWarningField.setText("");
