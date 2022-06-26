@@ -72,6 +72,22 @@ public class Enote extends Application {
             ex.printStackTrace();
         }
     }
+    
+    public static void gotoViewNotesPage() {
+        try {
+            replaceSceneContent("viewNotes.fxml", 800, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void gotoViewNoteDetailsPage() {
+        try {
+            replaceSceneContent("viewNoteDetails.fxml", 800, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -84,14 +100,15 @@ public class Enote extends Application {
                 stage.setResizable(false);
                 stage.setFullScreen(false);
 
-//                gotoSignInPage();
+                // gotoSignInPage();
                 // gotoSignUpPage();
                 gotoConnectScreen();
+                // gotoViewNotesPage();
+                // gotoViewNoteDetailsPage();
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
             }
-
         });
     }
 }

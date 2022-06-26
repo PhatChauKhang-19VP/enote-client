@@ -1,22 +1,58 @@
 package pck.enote.fe.model;
 
 public class Note {
-    private String filename;
-    private byte[] buffer;
+    public String type, uri, createdAt;
+    public int id;
 
     public Note() {
     }
 
-    public Note(String filename, byte[] buffer) {
-        this.filename = filename;
-        this.buffer = buffer;
+    public Note(int id, String type, String uri, String createdAt) {
+        this.id = id;
+        this.type = type;
+        this.uri = uri;
+        this.createdAt = createdAt;
     }
 
-    public String getFilename() {
-        return filename;
+    public int getId() {
+        return id;
     }
 
-    public byte[] getBuffer() {
-        return buffer;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "NoteInfo{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", uri='" + uri + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                '}';
     }
 }
