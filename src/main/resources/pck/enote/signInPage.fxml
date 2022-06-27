@@ -10,71 +10,57 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
-    <children>
-        <Pane layoutX="100.0" layoutY="60.0" prefHeight="500.0" prefWidth="400.0">
-            <children>
-                <Pane layoutX="55.0" layoutY="65.0" prefHeight="438.0" prefWidth="290.0" style="-fx-background-color: FAF1C1;">
-                    <children>
-                        <Pane layoutY="84.0" prefHeight="110.0">
-                            <children>
-                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Tên đăng nhập (*)" />
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/002-user_va1jxm.png" />
-                                    </image>
-                                </ImageView>
-                                <TextField fx:id="usernameField" layoutX="60.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập tên đăng nhập..." style="-fx-font-size: 16;" />
-                                <Label fx:id="usernameWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
-                            </children>
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Pane>
-                        <Pane layoutY="200.0" prefHeight="110.0">
-                            <children>
-                                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Mật khẩu (*)" />
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png" />
-                                    </image>
-                                </ImageView>
-                                <PasswordField fx:id="passwordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập mật khẩu..." style="-fx-font-size: 16;" />
-                                <Label fx:id="passwordWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
-                            </children>
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Pane>
-                        <Button fx:id="loginButton" layoutX="83.0" layoutY="330.0" mnemonicParsing="false" onAction="#onLoginButtonClicked" style="-fx-font-size: 20;" text="Đăng nhập" />
-                        <Label layoutX="72.0" layoutY="15.0" style="-fx-font-size: 30;" text="Đăng nhập" />
-                        <Label fx:id="succesAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0" prefHeight="30.0" prefWidth="290.0" style="-fx-font-size: 20;" textAlignment="CENTER" />
-                        <Pane layoutY="390.0" prefHeight="25.0" prefWidth="290.0">
-                            <children>
-                                <Label layoutX="50.0" style="-fx-font-size: 16;" text="Chưa có tài khoản?" />
-                                <Hyperlink fx:id="signUpHyperLink" layoutX="185.0" onAction="#onSignUpHyperLinkClicked" style="-fx-font-size: 14;" text="Đăng ký" />
-                            </children>
-                        </Pane>
-                    </children>
-                    <padding>
-                        <Insets bottom="20.0" />
-                    </padding>
-                </Pane>
-                <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note" />
-            </children>
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
+    <Pane layoutX="100.0" layoutY="60.0" prefHeight="500.0" prefWidth="400.0">
+        <Pane layoutX="55.0" layoutY="65.0" prefHeight="438.0" prefWidth="290.0" style="-fx-background-color: FAF1C1;">
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+            <Pane layoutY="84.0" prefHeight="110.0">
+                <padding>
+                    <Insets right="20.0" />
+                </padding>
+                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Tên đăng nhập (*)" />
+                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/002-user_va1jxm.png" />
+                </ImageView>
+                <TextField fx:id="usernameField" layoutX="60.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập tên đăng nhập..." style="-fx-font-size: 16;" />
+                <Label fx:id="usernameWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" />
+            </Pane>
+            <Pane layoutY="200.0" prefHeight="110.0">
+                <padding>
+                    <Insets right="20.0" />
+                </padding>
+                <Label layoutX="20.0" style="-fx-font-size: 20;" text="Mật khẩu (*)" />
+                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png" />
+                </ImageView>
+                <PasswordField fx:id="passwordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập mật khẩu..." style="-fx-font-size: 16;" />
+                <Label fx:id="passwordWarningField" layoutX="22.0" layoutY="83.0" style="-fx-font-size: 16;" />
+            </Pane>
+            <Button fx:id="loginButton" layoutX="83.0" layoutY="330.0" mnemonicParsing="false" onAction="#onLoginButtonClicked" style="-fx-font-size: 20;" text="Đăng nhập" />
+            <Label layoutX="72.0" layoutY="15.0" style="-fx-font-size: 30;" text="Đăng nhập" />
+            <Label fx:id="succesAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0" prefHeight="30.0" prefWidth="290.0" style="-fx-font-size: 20;" textAlignment="CENTER" />
+            <Pane layoutY="390.0" prefHeight="25.0" prefWidth="290.0">
+                <Label layoutX="50.0" style="-fx-font-size: 16;" text="Chưa có tài khoản?" />
+                <Hyperlink fx:id="signUpHyperLink" layoutX="185.0" onAction="#onSignUpHyperLinkClicked" style="-fx-font-size: 14;" text="Đăng ký" />
+            </Pane>
         </Pane>
-      <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: FAF1C1;">
-         <children>
-             <Pane prefHeight="50.0" prefWidth="300.0">
-                 <Label layoutX="9.0" layoutY="13.0" style="-fx-font-size: 16;" text="IP / Port:"/>
-                 <Label fx:id="connectionInfo" layoutX="90.0" layoutY="12.0" style="-fx-font-size: 16;"/>
-             </Pane>
-             <Pane layoutX="300.0" prefHeight="50.0" prefWidth="300.0">
-                 <Hyperlink fx:id="connectHyperLink" layoutX="230.0" layoutY="9.0" onAction="#onConnectHyperLinkClicked"
-                            style="-fx-font-size: 16;" text="Kết nối"/>
-             </Pane>
-         </children>
-      </Pane>
-    </children>
+        <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note" />
+    </Pane>
+    <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: FAF1C1;">
+        <Pane prefHeight="50.0" prefWidth="300.0">
+            <Label layoutX="9.0" layoutY="13.0" prefWidth="110.0" style="-fx-font-size: 16;" text="Server IP/Port:" />
+            <Label fx:id="connectionInfo" layoutX="120.0" layoutY="13.0" text="999.999.999.999/99999">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+        </Pane>
+        <Pane layoutX="300.0" prefHeight="50.0" prefWidth="300.0">
+            <Hyperlink fx:id="connectHyperLink" layoutX="150.0" layoutY="9.0" onAction="#onConnectHyperLinkClicked" style="-fx-font-size: 16;" text="Tùy chỉnh kết nối" />
+        </Pane>
+    </Pane>
 </AnchorPane>

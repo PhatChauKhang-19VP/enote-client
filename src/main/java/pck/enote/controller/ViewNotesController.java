@@ -26,6 +26,7 @@ public class ViewNotesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("init");
         colId.setCellValueFactory(new PropertyValueFactory<Note, Integer>("id"));
         colFileName.setCellValueFactory(new PropertyValueFactory<Note, String>("uri"));
         colFileType.setCellValueFactory(new PropertyValueFactory<Note, String>("type"));
@@ -64,6 +65,7 @@ public class ViewNotesController implements Initializable {
     private void getNotes(String username) {
         GetNoteListRes res = (GetNoteListRes) API.sendReq(new GetNoteListReq(username));
         tableView.getItems().clear();
+        assert res != null;
         tableView.getItems().addAll(res.getNoteList().values());
     }
 }

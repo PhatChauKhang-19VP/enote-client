@@ -1,6 +1,5 @@
 package pck.enote.controller;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,6 +9,8 @@ import pck.enote.api.req.SignInReq;
 import pck.enote.api.res.BaseRes;
 import pck.enote.api.res.RESPONSE_STATUS;
 import pck.enote.api.res.SignInRes;
+import pck.enote.be.model.Server;
+import pck.enote.be.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,6 +36,8 @@ public class SignInPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        connectionInfo.setText(Server.getInstance().getIP() + "/" + Server.getInstance().getPort());
+
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
@@ -127,7 +130,7 @@ public class SignInPageController implements Initializable {
                 }
 
                 SignInRes signInRes = (SignInRes) res;
-                if(signInRes.getStatus() ==  RESPONSE_STATUS.FAILED) {
+                if (signInRes.getStatus() == RESPONSE_STATUS.FAILED) {
                     //show noti login fail w msg:
                     succesAlert.setStyle(errorMessage);
                     succesAlert.setText(signInRes.getMsg());
@@ -135,20 +138,18 @@ public class SignInPageController implements Initializable {
                     return;
                 }
 
-                if(signInRes.getStatus() ==  RESPONSE_STATUS.SUCCESS) {
+                if (signInRes.getStatus() == RESPONSE_STATUS.SUCCESS) {
                     //show noti login fail w msg:
                     succesAlert.setStyle(successMessage);
                     succesAlert.setText(signInRes.getMsg());
                     succesAlert.setVisible(true);
 
-                    Platform.runLater(()->{
-                        try {
-                            Thread.sleep(2000);
-                            pck.enote.Enote.gotoSignUpPage();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    });
+
+                    User.getInstance().setUsername(usernameField.getText());
+                    User.getInstance().setPassword(passwordField.getText());
+
+                    pck.enote.Enote.gotoViewNotesPage();
+
                     return;
                 }
             }
@@ -164,13 +165,13 @@ public class SignInPageController implements Initializable {
     }
 
     public void onSignUpHyperLinkClicked(ActionEvent ae) {
-        if(ae.getSource() == signUpHyperLink) {
+        if (ae.getSource() == signUpHyperLink) {
             pck.enote.Enote.gotoSignUpPage();
         }
     }
 
     public void onConnectHyperLinkClicked(ActionEvent ae) {
-        if(ae.getSource() == connectHyperLink) {
+        if (ae.getSource() == connectHyperLink) {
             pck.enote.Enote.gotoConnectScreen();
         }
     }

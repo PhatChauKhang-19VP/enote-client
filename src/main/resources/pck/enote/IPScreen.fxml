@@ -8,8 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.IPScreenController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.IPScreenController">
     <children>
         <Pane layoutX="100.0" layoutY="70.0" prefHeight="465.0" prefWidth="400.0">
             <children>
@@ -23,7 +24,10 @@
                                         <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ip-address_fxaqpy.png" />
                                     </image>
                                 </ImageView>
-                                <TextField fx:id="ipField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập địa chỉ IP..." style="-fx-font-size: 16;" />
+                                <TextField fx:id="ipField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập địa chỉ IP...">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
                                 <Label fx:id="ipWarningField" layoutX="28.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
                             </children>
                             <padding>
@@ -38,16 +42,28 @@
                                         <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ethernet_scvhsm.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="portWarningField" layoutX="28.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
-                                <TextField fx:id="portField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập số cổng..." style="-fx-font-size: 16;" />
+                                <Label fx:id="portWarningField" layoutX="25.0" layoutY="83.0" prefWidth="250.0" style="-fx-font-size: 16;" text="" />
+                                <TextField fx:id="portField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập số cổng...">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
                             </children>
                             <padding>
                                 <Insets right="20.0" />
                             </padding>
                         </Pane>
-                        <Button fx:id="connectButton" layoutX="106.0" layoutY="330.0" mnemonicParsing="false" onAction="#onConnectButtonClicked" style="-fx-font-size: 20;" text="Kết nối" />
-                        <Label layoutX="104.0" layoutY="15.0" style="-fx-font-size: 30;" text="Kết nối" />
-                        <Label fx:id="statusAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0" prefHeight="30.0" prefWidth="290.0" style="-fx-font-size: 20;" textAlignment="CENTER" />
+                        <Button fx:id="connectButton" layoutX="106.0" layoutY="330.0" mnemonicParsing="false" onAction="#onConnectButtonClicked" text="Kết nối">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+                        <Label layoutX="104.0" layoutY="15.0" text="Kết nối">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                        <Label fx:id="statusAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0" prefHeight="30.0" prefWidth="300.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                     </children>
                     <padding>
                         <Insets bottom="20.0" />

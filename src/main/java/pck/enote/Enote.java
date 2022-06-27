@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import pck.enote.api.API;
 import pck.enote.helper.ScreenConfig;
 
 import static javafx.application.Platform.exit;
@@ -26,7 +27,15 @@ public class Enote extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
+    }
+
+    public static void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml", 600, 650);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
@@ -36,25 +45,12 @@ public class Enote extends Application {
 
         Enote.loader = loader;
 
-        Scene scene = stage.getScene();
-        if (scene == null) {
-            scene = new Scene(page, width, height);
-            stage.setScene(scene);
-        } else {
-            stage.getScene().setRoot(page);
-        }
+        Scene scene = new Scene(page, width, height);
+        stage.setScene(scene);
 
         stage.sizeToScene();
         stage.show();
         return page;
-    }
-
-    public static void gotoSignUpPage() {
-        try {
-            replaceSceneContent("signUpPage.fxml", 600, 600);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     public static void gotoSignInPage() {
@@ -65,14 +61,6 @@ public class Enote extends Application {
         }
     }
 
-    public static void gotoConnectScreen() {
-        try {
-            replaceSceneContent("IPScreen.fxml", 600, 650);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
     public static void gotoViewNotesPage() {
         try {
             replaceSceneContent("viewNotes.fxml", 800, 600);
@@ -110,5 +98,13 @@ public class Enote extends Application {
                 exit();
             }
         });
+    }
+
+    public static void gotoConnectScreen() {
+        try {
+            replaceSceneContent("IPScreen.fxml", 600, 650);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

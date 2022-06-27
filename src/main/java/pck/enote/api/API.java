@@ -25,62 +25,32 @@ public class API {
     private static Socket socket = null;
 
     public static void main(String[] args) throws IOException {
-//        User u = new User("phat", "123");
-//        System.out.println(testConnection());
+        //        User u = new User("phat", "123");
+        //        System.out.println(testConnection());
         connectToServer();
         //System.out.println(sendReq(new GetNoteListReq("phat1")));
         System.out.println(sendReq(new GetNoteReq("phat", 1)));
 
     }
 
-    /**
-     * just for testing if server is alive
-     *
-     * @return Server Response
-     */
-    public static TestConnectionRes testConnection() throws IOException {
-        Socket socket = new Socket(server.getIP(), server.getPort());
-
-        //* data to server
-        DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-        TestConnectionReq req = new TestConnectionReq();
-        dataOut.writeUTF(req.getType().name());
-
-        //* data from server
-        DataInputStream dataIn = new DataInputStream(socket.getInputStream());
-
-        //todo:
-        return null;
-    }
-
     public static boolean connectToServer() {
-        try {
-            server.setSocket(new Socket(server.getIP(), server.getPort()));
-            socket = Server.getInstance().getSocket();
+        boolean createConnRes = server.createConnection();
 
-            server.setDataIn(new DataInputStream(socket.getInputStream()));
+        if (createConnRes) {
+            socket = server.getSocket();
             dataIn = Server.getInstance().getDataIn();
-
-            server.setDataOut(new DataOutputStream(socket.getOutputStream()));
             dataOut = server.getDataOut();
 
             BaseRes testConnectionReq = sendReq(new TestConnectionReq());
 
             assert testConnectionReq != null;
-            if (testConnectionReq.getStatus() == RESPONSE_STATUS.SUCCESS) {
-                return true;
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            socket = null;
-            return false;
+            return testConnectionReq.getStatus() == RESPONSE_STATUS.SUCCESS;
         }
+
+        return false;
     }
 
     public static BaseRes sendReq(BaseReq req) {
-        System.out.println(socket);
-        System.out.println(dataOut);
         try {
 
             if (server == null) {
@@ -256,21 +226,21 @@ public class API {
                         dataIn.readFully(buffer, 0, buffer.length);
                     }
                     // random file name
-//                    int leftLimit = 97; // letter 'a'
-//                    int rightLimit = 122; // letter 'z'
-//                    int targetStringLength = 10;
-//                    Random random = new Random();
-//                    StringBuilder tmp = new StringBuilder(targetStringLength);
-//                    for (int i = 0; i < targetStringLength; i++) {
-//                        int randomLimitedInt = leftLimit + (int)
-//                                (random.nextFloat() * (rightLimit - leftLimit + 1));
-//                        tmp.append((char) randomLimitedInt);
-//                    }
-//                    String filename = tmp.toString();
+                    //                    int leftLimit = 97; // letter 'a'
+                    //                    int rightLimit = 122; // letter 'z'
+                    //                    int targetStringLength = 10;
+                    //                    Random random = new Random();
+                    //                    StringBuilder tmp = new StringBuilder(targetStringLength);
+                    //                    for (int i = 0; i < targetStringLength; i++) {
+                    //                        int randomLimitedInt = leftLimit + (int)
+                    //                                (random.nextFloat() * (rightLimit - leftLimit + 1));
+                    //                        tmp.append((char) randomLimitedInt);
+                    //                    }
+                    //                    String filename = tmp.toString();
                     // save the file
-//                    try (FileOutputStream fos = new FileOutputStream(filename)) {
-//                        fos.write(buffer);
-//                    }
+                    //                    try (FileOutputStream fos = new FileOutputStream(filename)) {
+                    //                        fos.write(buffer);
+                    //                    }
 
                     return new GetNoteRes(
                             status,

@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import pck.enote.api.API;
+import pck.enote.be.model.Server;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +30,9 @@ public class IPScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ipField.setText(Server.getInstance().getIP());
+        portField.setText(String.valueOf(Server.getInstance().getPort()));
+
         ipField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
@@ -104,7 +109,24 @@ public class IPScreenController implements Initializable {
     public void onConnectButtonClicked(ActionEvent ae) {
         if (ae.getSource() == connectButton) {
             if (checkIPValid(ipField.getText()) && checkPortValid(portField.getText())) {
-                pck.enote.Enote.gotoSignInPage();
+                Server.getInstance().setIP(ipField.getText());
+                Server.getInstance().setPort(Integer.parseInt(portField.getText()));
+                if (API.connectToServer()) {
+                    pck.enote.Enote.gotoSignInPage();
+                } else {
+                    statusAlert.setStyle(errorStyle);
+                    statusAlert.setText("Không thể kế nối đến server !");
+                    statusAlert.setStyle(errorMessage);
+                    statusAlert.setVisible(true);
+                    if (!checkIPValid("")) {
+                        new animatefx.animation.Shake(ipField).play();
+                    }
+
+                    if (!checkPortValid("")) {
+                        new animatefx.animation.Shake(portField).play();
+                    }
+                    System.out.println("Ket noi ko thanh cong den server");
+                }
             }
         }
 
