@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.ViewNotesController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/18">
     <children>
         <TableView fx:id="tableView" prefHeight="600.0" prefWidth="800.0">
             <columns>
-                <TableColumn fx:id="colId" prefWidth="72.80001527070999" resizable="false" text="ID" />
-                <TableColumn fx:id="colFileName" prefWidth="258.3999786376953" resizable="false" text="Tên Tệp Tin" />
-                <TableColumn fx:id="colFileType" minWidth="0.0" prefWidth="196.0" resizable="false" text="Loại Tệp Tin" />
-            <TableColumn fx:id="colCreatedAt" prefWidth="164.00006103515625" resizable="false" text="Ngày tải lên" />
-                <TableColumn fx:id="colBtn" prefWidth="109.60003662109375" resizable="false" />
+                <TableColumn fx:id="colId" prefWidth="72.80001527070999" resizable="false" text="ID"/>
+                <TableColumn fx:id="colFileName" prefWidth="258.3999786376953" resizable="false" text="Tên Tệp Tin"/>
+                <TableColumn fx:id="colFileType" minWidth="0.0" prefWidth="196.0" resizable="false"
+                             text="Loại Tệp Tin"/>
+                <TableColumn fx:id="colCreatedAt" prefWidth="164.00006103515625" resizable="false" text="Ngày tải lên"/>
+                <TableColumn fx:id="colBtn" prefWidth="109.60003662109375" resizable="false"/>
             </columns>
         </TableView>
     </children>
