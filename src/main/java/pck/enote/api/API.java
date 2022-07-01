@@ -226,21 +226,21 @@ public class API {
                         dataIn.readFully(buffer, 0, buffer.length);
                     }
                     // random file name
-                    //                    int leftLimit = 97; // letter 'a'
-                    //                    int rightLimit = 122; // letter 'z'
-                    //                    int targetStringLength = 10;
-                    //                    Random random = new Random();
-                    //                    StringBuilder tmp = new StringBuilder(targetStringLength);
-                    //                    for (int i = 0; i < targetStringLength; i++) {
-                    //                        int randomLimitedInt = leftLimit + (int)
-                    //                                (random.nextFloat() * (rightLimit - leftLimit + 1));
-                    //                        tmp.append((char) randomLimitedInt);
-                    //                    }
-                    //                    String filename = tmp.toString();
+                    // int leftLimit = 97; // letter 'a'
+                    // int rightLimit = 122; // letter 'z'
+                    // int targetStringLength = 10;
+                    // Random random = new Random();
+                    // StringBuilder tmp = new StringBuilder(targetStringLength);
+                    // for (int i = 0; i < targetStringLength; i++) {
+                    //     int randomLimitedInt = leftLimit + (int)
+                    //             (random.nextFloat() * (rightLimit - leftLimit + 1));
+                    //     tmp.append((char) randomLimitedInt);
+                    // }
+                    // String filename = tmp.toString();
                     // save the file
-                    //                    try (FileOutputStream fos = new FileOutputStream(filename)) {
-                    //                        fos.write(buffer);
-                    //                    }
+                    //  try (FileOutputStream fos = new FileOutputStream(filename)) {
+                    //     fos.write(buffer);
+                    // }
 
                     return new GetNoteRes(
                             status,

@@ -7,9 +7,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.api.req.GetNoteListReq;
 import pck.enote.api.res.GetNoteListRes;
+import pck.enote.be.model.User;
 import pck.enote.fe.model.Note;
 
 import java.net.URL;
@@ -21,8 +23,10 @@ public class ViewNotesController implements Initializable {
     public TableColumn<Note, Integer> colId;
     public TableColumn<Note, String> colFileName;
     public TableColumn<Note, String> colFileType;
-    public TableColumn colBtn;
+    public TableColumn<Note, String> colBtn;
     public TableColumn<Note, String> colCreatedAt;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,8 +38,8 @@ public class ViewNotesController implements Initializable {
 
         Callback<TableColumn<Note, String>, TableCell<Note, String>> cellFactory = new Callback<>() {
             @Override
-            public TableCell call(final TableColumn<Note, String> param) {
-                final TableCell<Note, String> cell = new TableCell<Note, String>() {
+            public TableCell<Note, String> call(final TableColumn<Note, String> param) {
+                return new TableCell<>() {
                     final Button btn = new Button("Xem chi tiết");
 
                     @Override
@@ -46,20 +50,19 @@ public class ViewNotesController implements Initializable {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                Note Note = getTableView().getItems().get(getIndex());
-                                System.out.println("select Note " + Note.getUri());
-//                                gotoListProduct(Note);
+                                Note note = getTableView().getItems().get(getIndex());
+                                System.out.println("select Note " + note.getUri());
+                                Enote.gotoViewNoteDetailsPage(note);
                             });
                             setGraphic(btn);
                             setText(null);
                         }
                     }
                 };
-                return cell;
             }
         };
         colBtn.setCellFactory(cellFactory);
-        this.getNotes("phat1");
+        this.getNotes(User.getInstance().getUsername());
     }
 
     private void getNotes(String username) {

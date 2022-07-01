@@ -9,6 +9,8 @@ module pck.enoteclient {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires AnimateFX;
+    requires javafx.media;
+    requires org.apache.commons.io;
 
     opens pck.enote to javafx.fxml;
     exports pck.enote;
