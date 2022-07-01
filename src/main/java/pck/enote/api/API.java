@@ -240,13 +240,10 @@ public class API {
                     }
                     RESPONSE_STATUS status = RESPONSE_STATUS.valueOf(dataIn.readUTF());
                     String msg = dataIn.readUTF();
-
-                    Note note = new Note(
-                            dataIn.readInt(),
-                            dataIn.readUTF(),
-                            dataIn.readUTF(),
-                            dataIn.readUTF()
-                    );
+                    Integer noteId = dataIn.readInt();
+                    String type = dataIn.readUTF(),
+                            uri = dataIn.readUTF(),
+                            createdAt = dataIn.readUTF();
 
                     // get file content
                     Integer length = dataIn.readInt();
@@ -255,6 +252,16 @@ public class API {
                         buffer = new byte[length];
                         dataIn.readFully(buffer, 0, buffer.length);
                     }
+
+                    Note note = new Note(
+                            noteId,
+                            type,
+                            uri,
+                            createdAt,
+                            buffer
+                    );
+
+
                     // random file name
 //                    int leftLimit = 97; // letter 'a'
 //                    int rightLimit = 122; // letter 'z'
