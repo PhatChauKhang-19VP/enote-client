@@ -18,24 +18,25 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ViewNotesController implements Initializable {
-
     public TableView<Note> tableView;
     public TableColumn<Note, Integer> colId;
     public TableColumn<Note, String> colFileName;
     public TableColumn<Note, String> colFileType;
     public TableColumn<Note, String> colBtn;
     public TableColumn<Note, String> colCreatedAt;
+    private String username = "";
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("init");
+        this.getNotes(User.getInstance().getUsername());
         colId.setCellValueFactory(new PropertyValueFactory<Note, Integer>("id"));
         colFileName.setCellValueFactory(new PropertyValueFactory<Note, String>("uri"));
         colFileType.setCellValueFactory(new PropertyValueFactory<Note, String>("type"));
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Note, String>("createdAt"));
-
+        String username = this.username;
         Callback<TableColumn<Note, String>, TableCell<Note, String>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Note, String> call(final TableColumn<Note, String> param) {
@@ -47,7 +48,6 @@ public class ViewNotesController implements Initializable {
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
-                            setText(null);
                         } else {
                             btn.setOnAction(event -> {
                                 Note note = getTableView().getItems().get(getIndex());
@@ -55,14 +55,14 @@ public class ViewNotesController implements Initializable {
                                 Enote.gotoViewNoteDetailsPage(note);
                             });
                             setGraphic(btn);
-                            setText(null);
                         }
+                        setText(null);
                     }
                 };
             }
         };
         colBtn.setCellFactory(cellFactory);
-        this.getNotes(User.getInstance().getUsername());
+        this.getNotes(username);
     }
 
     private void getNotes(String username) {
@@ -70,5 +70,13 @@ public class ViewNotesController implements Initializable {
         tableView.getItems().clear();
         assert res != null;
         tableView.getItems().addAll(res.getNoteList().values());
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

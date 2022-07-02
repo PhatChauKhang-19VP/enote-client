@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.ViewNoteDetailsController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.ViewNoteDetailsController">
     <Pane prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: #ddd;">
         <children>
             <Button layoutX="18.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" text="Back" />

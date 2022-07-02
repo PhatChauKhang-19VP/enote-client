@@ -1,8 +1,9 @@
 package pck.enote.fe.model;
 
 public class Note {
-    public String type, uri, createdAt;
-    public int id;
+    private String type, uri, createdAt;
+    private int id;
+    private byte[] content;
 
     public Note() {
     }
@@ -12,6 +13,14 @@ public class Note {
         this.type = type;
         this.uri = uri;
         this.createdAt = createdAt;
+    }
+
+    public Note(int id, String type, String uri, String createdAt, byte[] content) {
+        this.id = id;
+        this.type = type;
+        this.uri = uri;
+        this.createdAt = createdAt;
+        this.content = content;
     }
 
     public int getId() {
@@ -44,6 +53,14 @@ public class Note {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 
     @Override
