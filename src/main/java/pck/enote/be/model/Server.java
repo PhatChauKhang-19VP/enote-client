@@ -56,7 +56,7 @@ public class Server {
     public boolean createConnection() {
         try {
             socket = new Socket();
-            socket.connect(new InetSocketAddress(IP, port), 2*1000);
+            socket.connect(new InetSocketAddress(IP, port), 2 * 1000);
             dataIn = new DataInputStream(socket.getInputStream());
             dataOut = new DataOutputStream(socket.getOutputStream());
 

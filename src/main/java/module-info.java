@@ -20,4 +20,6 @@ module pck.enoteclient {
 
     opens pck.enote.fe.model to javafx.fxml;
     exports pck.enote.fe.model;
+    exports pck.enote.controller.views;
+    opens pck.enote.controller.views to javafx.fxml;
 }

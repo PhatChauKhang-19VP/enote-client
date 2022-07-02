@@ -1,16 +1,14 @@
 package pck.enote.controller;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.api.req.GetNoteListReq;
 import pck.enote.api.res.GetNoteListRes;
+import pck.enote.be.model.Server;
 import pck.enote.be.model.User;
 import pck.enote.fe.model.Note;
 
@@ -24,19 +22,25 @@ public class ViewNotesController implements Initializable {
     public TableColumn<Note, String> colFileType;
     public TableColumn<Note, String> colBtn;
     public TableColumn<Note, String> colCreatedAt;
-    private String username = "";
-
-
+    public TextField tfUsername;
+    public TextField tfNumberNote;
+    public TextField tfIP;
+    public TextField tfPort;
+    public Hyperlink hlEditSever;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("init");
+        tfUsername.setText(User.getInstance().getUsername());
+        tfNumberNote.setText("0");
+        tfIP.setText(Server.getInstance().getIP());
+        tfPort.setText(String.valueOf(Server.getInstance().getPort()));
+
         this.getNotes(User.getInstance().getUsername());
         colId.setCellValueFactory(new PropertyValueFactory<Note, Integer>("id"));
-        colFileName.setCellValueFactory(new PropertyValueFactory<Note, String>("uri"));
+        colFileName.setCellValueFactory(new PropertyValueFactory<Note, String>("filename"));
         colFileType.setCellValueFactory(new PropertyValueFactory<Note, String>("type"));
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Note, String>("createdAt"));
-        String username = this.username;
         Callback<TableColumn<Note, String>, TableCell<Note, String>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Note, String> call(final TableColumn<Note, String> param) {
@@ -62,21 +66,14 @@ public class ViewNotesController implements Initializable {
             }
         };
         colBtn.setCellFactory(cellFactory);
-        this.getNotes(username);
+        this.getNotes(User.getInstance().getUsername());
     }
 
     private void getNotes(String username) {
         GetNoteListRes res = (GetNoteListRes) API.sendReq(new GetNoteListReq(username));
         tableView.getItems().clear();
         assert res != null;
+        tfNumberNote.setText(String.valueOf(res.getNoteList().size()));
         tableView.getItems().addAll(res.getNoteList().values());
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

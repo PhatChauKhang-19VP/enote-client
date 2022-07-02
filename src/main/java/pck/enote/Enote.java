@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import pck.enote.api.API;
+import pck.enote.be.model.User;
 import pck.enote.controller.ViewNoteDetailsController;
 import pck.enote.controller.ViewNotesController;
 import pck.enote.fe.model.Note;
@@ -64,14 +65,9 @@ public class Enote extends Application {
         }
     }
 
-    public static void gotoViewNotesPage(String username) {
+    public static void gotoViewNotesPage() {
         try {
             replaceSceneContent("viewNotes.fxml", 800, 600);
-            ViewNotesController controller = new ViewNotesController();
-            controller.setUsername(username);
-
-            stage.sizeToScene();
-            stage.show();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -80,11 +76,9 @@ public class Enote extends Application {
     public static void gotoViewNoteDetailsPage(Note note) {
         try {
             replaceSceneContent("viewNoteDetails.fxml", 800, 600);
-            Parent page = loader.load();
 
             ViewNoteDetailsController ctrl = loader.getController();
-            controller.setUsername(User.getInstance().getUsername());
-            controller.setNoteId(note.getNoteId());
+            ctrl.noteProperty.setValue(note);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -63,6 +63,11 @@ public class Note {
         this.content = content;
     }
 
+    public String getFilename() {
+        String[] splitFileName = uri.split("/");
+        return splitFileName[splitFileName.length - 1];
+    }
+
     @Override
     public String toString() {
         return "NoteInfo{" +

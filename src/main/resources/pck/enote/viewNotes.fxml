@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.ViewNotesController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.ViewNotesController">
     <children>
       <Pane prefHeight="91.0" prefWidth="400.0">
          <children>
@@ -19,7 +19,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField disable="true" editable="false" layoutX="90.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" text="phat1">
+            <TextField fx:id="tfUsername" disable="true" editable="false" layoutX="90.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" text="phat1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField disable="true" editable="false" layoutX="90.0" layoutY="50.0" prefHeight="30.0" prefWidth="300.0" text="100">
+            <TextField fx:id="tfNumberNote" disable="true" editable="false" layoutX="90.0" layoutY="50.0" prefHeight="30.0" prefWidth="300.0" text="100">
                <font>
                   <Font size="14.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField disable="true" editable="false" layoutX="90.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" text="172.21.64.1">
+            <TextField fx:id="tfIP" disable="true" editable="false" layoutX="90.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" text="172.21.64.1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -56,12 +56,12 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField disable="true" editable="false" layoutX="90.0" layoutY="50.0" prefHeight="30.0" prefWidth="150.0" text="9999">
+            <TextField fx:id="tfPort" disable="true" editable="false" layoutX="90.0" layoutY="50.0" prefHeight="30.0" prefWidth="150.0" text="9999">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Hyperlink layoutX="250.0" layoutY="50.0" prefHeight="30.0" text="Tùy chỉnh kết nối" />
+            <Hyperlink fx:id="hlEditSever" layoutX="250.0" layoutY="50.0" prefHeight="30.0" text="Tùy chỉnh kết nối" />
          </children>
       </Pane>
         <TableView fx:id="tableView" layoutY="149.0" prefHeight="450.0" prefWidth="800.0">
