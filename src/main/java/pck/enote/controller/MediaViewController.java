@@ -38,7 +38,7 @@ public class MediaViewController implements Initializable {
         });
     }
 
-    private void init(){
+    private void init() {
     }
 
     public void play() {

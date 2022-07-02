@@ -37,7 +37,7 @@
             </Label>
             <Pane fx:id="content" layoutY="180.0" prefHeight="420.0" prefWidth="500.0">
             <children>
-               <ScrollPane fx:id="spContent" prefHeight="420.0" prefWidth="500.0" />
+               <ScrollPane fx:id="spContent" hbarPolicy="NEVER" prefHeight="420.0" prefWidth="500.0" />
             </children></Pane>
         </children>
     </Pane>
