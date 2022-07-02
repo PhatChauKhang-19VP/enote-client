@@ -122,6 +122,7 @@ public class ViewNoteDetailsController implements Initializable {
             // );
         } else if (type.contains("video")) {
             File videoFile = new File("myVideo");
+            videoFile.deleteOnExit();
             try {
                 FileUtils.copyInputStreamToFile(new ByteArrayInputStream(note.getContent()), videoFile);
                 displayVideo(videoFile);
