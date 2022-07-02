@@ -6,10 +6,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.DirectoryChooser;
 import org.apache.commons.io.FileUtils;
 import pck.enote.Enote;
 import pck.enote.api.API;
@@ -21,9 +24,9 @@ import pck.enote.controller.views.MediaViewController;
 import pck.enote.controller.views.TextViewController;
 import pck.enote.fe.model.Note;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,8 +39,8 @@ public class ViewNoteDetailsController implements Initializable {
     public Button btnBack;
     public Button btnDownload;
     public Label notification;
-
     public Property<Note> noteProperty = new SimpleObjectProperty<>();
+    Note note = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,61 +51,14 @@ public class ViewNoteDetailsController implements Initializable {
                     }
                 }
         );
-
-        // try {
-        //     //! test video player
-        //     String testWhat = "image";
-        //
-        //     if (testWhat.equals("video")) {
-        //         FXMLLoader fxmlLoaderClient = new FXMLLoader();
-        //         fxmlLoaderClient.setLocation(Enote.class.getResource("mediaView.fxml"));
-        //         AnchorPane mediaView = fxmlLoaderClient.load();
-        //
-        //         MediaViewController ctrl = fxmlLoaderClient.getController();
-        //         URL urlTest = new URL("http://clips.vorwaerts-gmbh.de/VfE_html5.mp4");
-        //         URLConnection conn = urlTest.openConnection();
-        //         conn.setConnectTimeout(5000);
-        //         conn.setReadTimeout(5000);
-        //         conn.connect();
-        //
-        //         File destFile = new File("somefile.txt");
-        //         FileUtils.copyInputStreamToFile(conn.getInputStream(), destFile);
-        //
-        //         ctrl.fileProperty.setValue(destFile);
-        //
-        //         spContent.setContent(mediaView);
-        //     }
-        //     //! test image view
-        //     else if (testWhat.equals("image")) {
-        //         FXMLLoader fxmlLoaderClient = new FXMLLoader();
-        //         fxmlLoaderClient.setLocation(Enote.class.getResource("imageView.fxml"));
-        //         AnchorPane imgView = fxmlLoaderClient.load();
-        //
-        //         ImageViewController ctrl = fxmlLoaderClient.getController();
-        //
-        //         Image image = new Image("https://res.cloudinary.com/pck-group/image/upload/v1648455715/samples/bike.jpg");
-        //
-        //         Platform.runLater(() -> {
-        //             ctrl.ivImage.setImage(image);
-        //         });
-        //
-        //         spContent.setContent(imgView);
-        //     }
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
     }
 
     private void getNoteDetails(String username, Integer noteId) {
         GetNoteRes res = (GetNoteRes) API.sendReq(new GetNoteReq(username, noteId));
         assert res != null;
-        Note note = res.getNote();
+        note = res.getNote();
         tfId.setText(String.valueOf(note.getId()));
-
-        // split the path on splash to get file name
-        String[] splitFileName = note.getUri().split("/");
-        tfFileName.setText(splitFileName[splitFileName.length - 1]);
-
+        tfFileName.setText(note.getFilename());
         tfFileType.setText(note.getType());
         tfCreatedAt.setText(note.getCreatedAt());
 
@@ -114,12 +70,6 @@ public class ViewNoteDetailsController implements Initializable {
         } else if (type.contains("image")) {
             Image img = new Image(new ByteArrayInputStream(note.getContent()));
             displayImage(img);
-
-            // content.getChildren().clear();
-            // Image img = new Image(new ByteArrayInputStream(note.getContent()));
-            // content.getChildren().add(
-            //         new ImageView(img)
-            // );
         } else if (type.contains("video")) {
             File videoFile = new File("myVideo");
             videoFile.deleteOnExit();
@@ -130,7 +80,7 @@ public class ViewNoteDetailsController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("default case");
+            System.out.println("Loại file " + note.getType() + " không được hỗ trợ");
         }
     }
 
@@ -188,7 +138,7 @@ public class ViewNoteDetailsController implements Initializable {
     }
 
     public void back(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnBack){
+        if (actionEvent.getSource() == btnBack) {
             System.out.println("back");
             Enote.gotoViewNotesPage();
         }
@@ -196,9 +146,21 @@ public class ViewNoteDetailsController implements Initializable {
 
 
     public void download(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnDownload){
-            System.out.println("download [todo]");
-            //todo: client chose directory path and download file
+        if (actionEvent.getSource() == btnDownload) {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setInitialDirectory(new File("./"));
+            File selectedDirectory = directoryChooser.showDialog(Enote.stage);
+
+            if (selectedDirectory.isDirectory()) {
+                File downloadFile = new File(selectedDirectory.getAbsolutePath() + "/" + note.getFilename());
+                try {
+                    FileUtils.copyInputStreamToFile(new ByteArrayInputStream(note.getContent()), downloadFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("downloaded the file " + note.getFilename() + " , saved to " + selectedDirectory.getAbsolutePath());
+            }
         }
     }
 }
