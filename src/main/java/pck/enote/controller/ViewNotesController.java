@@ -1,17 +1,25 @@
 package pck.enote.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.api.req.GetNoteListReq;
+import pck.enote.api.req.SendFileReq;
 import pck.enote.api.res.GetNoteListRes;
+import pck.enote.api.res.RESPONSE_STATUS;
+import pck.enote.api.res.SendFileRes;
 import pck.enote.be.model.Server;
 import pck.enote.be.model.User;
 import pck.enote.fe.model.Note;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,6 +35,8 @@ public class ViewNotesController implements Initializable {
     public TextField tfIP;
     public TextField tfPort;
     public Hyperlink hlEditSever;
+    public Button btnUpload;
+    public ImageView ivPlusIcon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,6 +45,7 @@ public class ViewNotesController implements Initializable {
         tfNumberNote.setText("0");
         tfIP.setText(Server.getInstance().getIP());
         tfPort.setText(String.valueOf(Server.getInstance().getPort()));
+        ivPlusIcon.setImage(new Image("static/icons/plus.png"));
 
         this.getNotes(User.getInstance().getUsername());
         colId.setCellValueFactory(new PropertyValueFactory<Note, Integer>("id"));
@@ -75,5 +86,29 @@ public class ViewNotesController implements Initializable {
         assert res != null;
         tfNumberNote.setText(String.valueOf(res.getNoteList().size()));
         tableView.getItems().addAll(res.getNoteList().values());
+    }
+
+    public void editConnection(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == hlEditSever) {
+            Enote.gotoConnectScreen();
+        }
+    }
+
+    public void choseFileAndUpload(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == btnUpload) {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(Enote.stage);
+
+            if (file != null) {
+                SendFileRes res = (SendFileRes) API.sendReq(new SendFileReq(file));
+
+                assert res != null;
+                System.out.println(res);
+                if (res.getStatus() == RESPONSE_STATUS.SUCCESS){
+                    System.out.println("upload thanh cong" + res.getFileUrl());
+                    Enote.gotoViewNotesPage();
+                }
+            }
+        }
     }
 }

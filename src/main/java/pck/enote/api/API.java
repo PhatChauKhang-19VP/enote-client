@@ -132,17 +132,17 @@ public class API {
 
                 case UPLOAD -> {
                     //* send data to server
-                    SendFileReq sendFileRes = (SendFileReq) req;
+                    SendFileReq sendFileReq = (SendFileReq) req;
 
                     // write type:
-                    dataOut.writeUTF(sendFileRes.getType().name());
+                    dataOut.writeUTF(sendFileReq.getType().name());
 
                     // write filename:
-                    dataOut.writeUTF(sendFileRes.getFilename());
+                    dataOut.writeUTF(sendFileReq.getFilename());
 
                     // write file buffer
-                    dataOut.writeInt(sendFileRes.getBuffer().length);
-                    dataOut.write(sendFileRes.getBuffer());
+                    dataOut.writeInt(sendFileReq.getBuffer().length);
+                    dataOut.write(sendFileReq.getBuffer());
 
                     //* read data from server
                     REQUEST_TYPE resType = REQUEST_TYPE.valueOf(dataIn.readUTF());
