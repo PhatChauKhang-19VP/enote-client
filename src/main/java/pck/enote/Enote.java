@@ -8,12 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import pck.enote.api.API;
+import pck.enote.be.model.User;
+import pck.enote.controller.ViewNoteDetailsController;
+import pck.enote.controller.ViewNotesController;
+import pck.enote.fe.model.Note;
 import pck.enote.helper.ScreenConfig;
 
 import static javafx.application.Platform.exit;
 
 public class Enote extends Application {
     public static Stage stage = null;
+
     public static FXMLLoader loader = null;
 
     public static Stage getStage() {
@@ -25,7 +31,57 @@ public class Enote extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
+    }
+
+    public static void gotoSignUpPage() {
+        try {
+            replaceSceneContent("signUpPage.fxml", 600, 650);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Enote.class.getResource(fxml), null, new JavaFXBuilderFactory());
+
+        Parent page = loader.load();
+
+        Enote.loader = loader;
+
+        Scene scene = new Scene(page, width, height);
+        stage.setScene(scene);
+
+        stage.sizeToScene();
+        stage.show();
+        return page;
+    }
+
+    public static void gotoSignInPage() {
+        try {
+            replaceSceneContent("signInPage.fxml", 600, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void gotoViewNotesPage() {
+        try {
+            replaceSceneContent("viewNotes.fxml", 800, 600);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void gotoViewNoteDetailsPage(Note note) {
+        try {
+            replaceSceneContent("viewNoteDetails.fxml", 800, 600);
+
+            ViewNoteDetailsController ctrl = loader.getController();
+            ctrl.noteProperty.setValue(note);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -40,48 +96,22 @@ public class Enote extends Application {
                 stage.setFullScreen(false);
 
                 // gotoSignInPage();
-                gotoSignUpPage();
+                // gotoSignUpPage();
+                gotoConnectScreen();
+                // gotoViewNotesPage();
+                // gotoViewNoteDetailsPage(???);
             } catch (Exception e) {
                 e.printStackTrace();
                 exit();
             }
-
         });
     }
 
-    public void gotoSignInPage() {
+    public static void gotoConnectScreen() {
         try {
-            replaceSceneContent("signInPage.fxml", 600, 600);
+            replaceSceneContent("IPScreen.fxml", 600, 650);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    public void gotoSignUpPage() {
-        try {
-            replaceSceneContent("signUpPage.fxml", 600, 600);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml), null, new JavaFXBuilderFactory());
-
-        Parent page = loader.load();
-
-        this.loader = loader;
-
-        Scene scene = stage.getScene();
-        if (scene == null) {
-            scene = new Scene(page, width, height);
-            stage.setScene(scene);
-        } else {
-            stage.getScene().setRoot(page);
-        }
-
-        stage.sizeToScene();
-        stage.show();
-        return page;
     }
 }

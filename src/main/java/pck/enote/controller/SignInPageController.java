@@ -2,10 +2,15 @@ package pck.enote.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import pck.enote.api.API;
+import pck.enote.api.req.REQUEST_TYPE;
+import pck.enote.api.req.SignInReq;
+import pck.enote.api.res.BaseRes;
+import pck.enote.api.res.RESPONSE_STATUS;
+import pck.enote.api.res.SignInRes;
+import pck.enote.be.model.Server;
+import pck.enote.be.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +24,9 @@ public class SignInPageController implements Initializable {
     public Label succesAlert;
 
     public Button loginButton;
+    public Hyperlink signUpHyperLink;
+    public Hyperlink connectHyperLink;
+    public Label connectionInfo;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -28,6 +36,8 @@ public class SignInPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        connectionInfo.setText(Server.getInstance().getIP() + "/" + Server.getInstance().getPort());
+
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
@@ -99,7 +109,6 @@ public class SignInPageController implements Initializable {
             return false;
         }
 
-
         passwordField.setStyle(successStyle);
         passwordWarningField.setText("");
         passwordWarningField.setStyle(successMessage);
@@ -110,9 +119,39 @@ public class SignInPageController implements Initializable {
     public void onLoginButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
             if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
-                succesAlert.setVisible(true);
-                System.out.println(usernameField.getText());
-                System.out.println(passwordField.getText());
+                BaseRes res = API.sendReq(new SignInReq(usernameField.getText(), passwordField.getText()));
+                assert res != null;
+                if (res.getType() != REQUEST_TYPE.SIGN_IN) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(errorMessage);
+                    succesAlert.setText(res.getMsg());
+                    succesAlert.setVisible(true);
+                    return;
+                }
+
+                SignInRes signInRes = (SignInRes) res;
+                if (signInRes.getStatus() == RESPONSE_STATUS.FAILED) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(errorMessage);
+                    succesAlert.setText(signInRes.getMsg());
+                    succesAlert.setVisible(true);
+                    return;
+                }
+
+                if (signInRes.getStatus() == RESPONSE_STATUS.SUCCESS) {
+                    //show noti login fail w msg:
+                    succesAlert.setStyle(successMessage);
+                    succesAlert.setText(signInRes.getMsg());
+                    succesAlert.setVisible(true);
+
+
+                    User.getInstance().setUsername(usernameField.getText());
+                    User.getInstance().setPassword(passwordField.getText());
+
+                    pck.enote.Enote.gotoViewNotesPage();
+
+                    return;
+                }
             }
 
             if (!checkUsernameValid(usernameField.getText())) {
@@ -125,6 +164,16 @@ public class SignInPageController implements Initializable {
         }
     }
 
+    public void onSignUpHyperLinkClicked(ActionEvent ae) {
+        if (ae.getSource() == signUpHyperLink) {
+            pck.enote.Enote.gotoSignUpPage();
+        }
+    }
 
+    public void onConnectHyperLinkClicked(ActionEvent ae) {
+        if (ae.getSource() == connectHyperLink) {
+            pck.enote.Enote.gotoConnectScreen();
+        }
+    }
 }
 

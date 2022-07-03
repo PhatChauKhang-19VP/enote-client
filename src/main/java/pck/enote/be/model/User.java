@@ -1,10 +1,20 @@
-package pck.enote.be;
+package pck.enote.be.model;
 
 public class User {
     private String username;
     private String password;
 
-    public User(String username, String password) {
+    private static User instance = null;
+
+    public static User getInstance(){
+        if (instance == null){
+            instance = new User("", "");
+        }
+
+        return instance;
+    }
+
+    private User(String username, String password) {
         this.username = username;
         this.password = password;
     }

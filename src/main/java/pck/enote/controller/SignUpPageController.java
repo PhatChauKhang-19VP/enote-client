@@ -2,10 +2,9 @@ package pck.enote.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import pck.enote.api.API;
+import pck.enote.api.req.SignUpReq;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,12 +12,18 @@ import java.util.ResourceBundle;
 public class SignUpPageController implements Initializable {
     public TextField usernameField;
     public PasswordField passwordField;
+    public PasswordField confirmPasswordField;
 
     public Label passwordWarningField;
     public Label usernameWarningField;
+    public Label confirmPassWarningField;
+
     public Label succesAlert;
 
     public Button loginButton;
+    public Hyperlink signInHyperLink;
+    public Hyperlink connectHyperLink;
+    public Label connectionInfo;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -39,11 +44,21 @@ public class SignUpPageController implements Initializable {
         });
 
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.matches(".*\\s")) {
+            if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
                 passwordField.setText(newValue);
             } else {
                 checkPasswordValid(newValue);
+                succesAlert.setVisible(false);
+            }
+        });
+
+        confirmPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches(".*\\s")) {
+                newValue = oldValue;
+                confirmPasswordField.setText(newValue);
+            } else {
+                checkConfirmPasswordValid(newValue);
                 succesAlert.setVisible(false);
             }
         });
@@ -107,12 +122,48 @@ public class SignUpPageController implements Initializable {
         return true;
     }
 
+    public boolean checkConfirmPasswordValid(String password) {
+        if (password.isBlank()) {
+            confirmPasswordField.setStyle(errorStyle);
+            confirmPassWarningField.setText("Vui lòng nhập mật khẩu!");
+            confirmPassWarningField.setStyle(errorMessage);
+
+            return false;
+        }
+
+        if (password.length() < 3) {
+            confirmPasswordField.setStyle(errorStyle);
+            confirmPassWarningField.setText("Mật khẩu phải dài hơn 3 kí tự!");
+            confirmPassWarningField.setStyle(errorMessage);
+
+            return false;
+        }
+
+        if (!password.equals(passwordField.getText())) {
+            confirmPasswordField.setStyle(errorStyle);
+            confirmPassWarningField.setText("Mật khẩu không khớp!");
+            confirmPassWarningField.setStyle(errorMessage);
+
+            return false;
+        }
+
+        confirmPasswordField.setStyle(successStyle);
+        confirmPassWarningField.setText("");
+        confirmPassWarningField.setStyle(successMessage);
+
+        return true;
+    }
+
     public void onSignUpButtonClicked(ActionEvent ae) {
         if (ae.getSource() == loginButton) {
-            if (checkUsernameValid(usernameField.getText()) && checkPasswordValid(passwordField.getText())) {
+            if (checkUsernameValid(usernameField.getText())
+                    && checkPasswordValid(passwordField.getText())
+                    && checkConfirmPasswordValid(confirmPasswordField.getText())
+            ) {
                 succesAlert.setVisible(true);
-                System.out.println(usernameField.getText());
-                System.out.println(passwordField.getText());
+                System.out.println(confirmPassWarningField.getText());
+
+                System.out.println(API.sendReq(new SignUpReq(usernameField.getText(), passwordField.getText())));
             }
 
             if (!checkUsernameValid(usernameField.getText())) {
@@ -122,9 +173,23 @@ public class SignUpPageController implements Initializable {
             if (!checkPasswordValid(passwordField.getText())) {
                 new animatefx.animation.Shake(passwordField).play();
             }
+
+            if (!checkConfirmPasswordValid(confirmPasswordField.getText())) {
+                new animatefx.animation.Shake(confirmPasswordField).play();
+            }
         }
     }
 
+    public void onSignInHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == signInHyperLink) {
+            pck.enote.Enote.gotoSignInPage();
+        }
+    }
 
+    public void onConnectHyperLinkClicked(ActionEvent ae) {
+        if(ae.getSource() == connectHyperLink) {
+            pck.enote.Enote.gotoConnectScreen();
+        }
+    }
 }
 
