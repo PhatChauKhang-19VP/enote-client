@@ -52,7 +52,6 @@ public class API {
 
     public static BaseRes sendReq(BaseReq req) {
         try {
-
             if (server == null) {
                 System.out.println("CANNOT CONNECT TO SERVER !!! APPLICATION WILL EXIT");
 

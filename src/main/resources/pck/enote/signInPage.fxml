@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.SignInPageController">
     <Pane layoutX="100.0" layoutY="60.0" prefHeight="500.0" prefWidth="400.0">
         <Pane layoutX="55.0" layoutY="65.0" prefHeight="438.0" prefWidth="290.0" style="-fx-background-color: FAF1C1;">
             <padding>
@@ -23,7 +23,7 @@
                     <Insets right="20.0" />
                 </padding>
                 <Label layoutX="20.0" style="-fx-font-size: 20;" text="Tên đăng nhập (*)" />
-                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="ivUserIcon" fitHeight="35.0" fitWidth="35.0" layoutX="19.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/002-user_va1jxm.png" />
                 </ImageView>
                 <TextField fx:id="usernameField" layoutX="60.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập tên đăng nhập..." style="-fx-font-size: 16;" />
@@ -34,7 +34,7 @@
                     <Insets right="20.0" />
                 </padding>
                 <Label layoutX="20.0" style="-fx-font-size: 20;" text="Mật khẩu (*)" />
-                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="ivPwdIcon" fitHeight="35.0" fitWidth="35.0" layoutX="18.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655308340/MMT/enote/images/001-padlock_gawcmt.png" />
                 </ImageView>
                 <PasswordField fx:id="passwordField" layoutX="60.0" layoutY="40.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập mật khẩu..." style="-fx-font-size: 16;" />

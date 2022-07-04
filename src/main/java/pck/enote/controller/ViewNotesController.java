@@ -1,5 +1,6 @@
 package pck.enote.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -47,7 +48,6 @@ public class ViewNotesController implements Initializable {
         tfPort.setText(String.valueOf(Server.getInstance().getPort()));
         ivPlusIcon.setImage(new Image("static/icons/plus.png"));
 
-        this.getNotes(User.getInstance().getUsername());
         colId.setCellValueFactory(new PropertyValueFactory<Note, Integer>("id"));
         colFileName.setCellValueFactory(new PropertyValueFactory<Note, String>("filename"));
         colFileType.setCellValueFactory(new PropertyValueFactory<Note, String>("type"));
@@ -77,7 +77,9 @@ public class ViewNotesController implements Initializable {
             }
         };
         colBtn.setCellFactory(cellFactory);
-        this.getNotes(User.getInstance().getUsername());
+        Platform.runLater(() -> {
+            this.getNotes(User.getInstance().getUsername());
+        });
     }
 
     private void getNotes(String username) {

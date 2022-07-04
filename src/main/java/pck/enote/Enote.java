@@ -6,12 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import pck.enote.api.API;
-import pck.enote.be.model.User;
 import pck.enote.controller.ViewNoteDetailsController;
-import pck.enote.controller.ViewNotesController;
 import pck.enote.fe.model.Note;
 import pck.enote.helper.ScreenConfig;
 

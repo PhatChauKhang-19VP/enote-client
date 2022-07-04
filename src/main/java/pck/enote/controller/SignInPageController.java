@@ -3,6 +3,8 @@ package pck.enote.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import pck.enote.api.API;
 import pck.enote.api.req.REQUEST_TYPE;
 import pck.enote.api.req.SignInReq;
@@ -27,6 +29,8 @@ public class SignInPageController implements Initializable {
     public Hyperlink signUpHyperLink;
     public Hyperlink connectHyperLink;
     public Label connectionInfo;
+    public ImageView ivUserIcon;
+    public ImageView ivPwdIcon;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -37,6 +41,8 @@ public class SignInPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connectionInfo.setText(Server.getInstance().getIP() + "/" + Server.getInstance().getPort());
+        ivUserIcon.setImage(new Image("static/icons/user-icon.png"));
+        ivPwdIcon.setImage(new Image("static/icons/pwd-icon.png"));
 
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {

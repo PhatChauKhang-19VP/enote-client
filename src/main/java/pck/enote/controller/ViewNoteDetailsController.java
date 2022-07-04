@@ -47,6 +47,7 @@ public class ViewNoteDetailsController implements Initializable {
         noteProperty.addListener(
                 (observableValue, note, t1) -> {
                     if (noteProperty.getValue() != null) {
+                        System.out.println("prop trigger");
                         getNoteDetails(User.getInstance().getUsername(), noteProperty.getValue().getId());
                     }
                 }
@@ -64,7 +65,7 @@ public class ViewNoteDetailsController implements Initializable {
 
         // display content
         String type = note.getType();
-        if (type.contains("plain")) {
+        if (type.contains("text")) {
             String content = new String(note.getContent());
             displayText(content);
         } else if (type.contains("image")) {
