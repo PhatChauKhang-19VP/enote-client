@@ -188,7 +188,7 @@ public class SignUpPageController implements Initializable {
                             btnGotoSignIn);
                     alert.setTitle("Thông báo");
                     alert.setHeaderText("Đăng kí thành công tài khoản " + usernameField.getText() + " !");
-                    alert.setOnCloseRequest(Event::consume);
+
                     // option != null.
                     Optional<ButtonType> option = alert.showAndWait();
 
