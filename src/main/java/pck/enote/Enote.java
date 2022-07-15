@@ -6,12 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import pck.enote.api.API;
-import pck.enote.be.model.User;
 import pck.enote.controller.ViewNoteDetailsController;
-import pck.enote.controller.ViewNotesController;
 import pck.enote.fe.model.Note;
 import pck.enote.helper.ScreenConfig;
 
@@ -39,6 +37,7 @@ public class Enote extends Application {
             replaceSceneContent("signUpPage.fxml", 600, 650);
         } catch (Exception ex) {
             ex.printStackTrace();
+            onError(ex.getMessage());
         }
     }
 
@@ -62,6 +61,7 @@ public class Enote extends Application {
             replaceSceneContent("signInPage.fxml", 600, 600);
         } catch (Exception ex) {
             ex.printStackTrace();
+            onError(ex.getMessage());
         }
     }
 
@@ -70,6 +70,7 @@ public class Enote extends Application {
             replaceSceneContent("viewNotes.fxml", 800, 600);
         } catch (Exception ex) {
             ex.printStackTrace();
+            onError(ex.getMessage());
         }
     }
 
@@ -81,6 +82,7 @@ public class Enote extends Application {
             ctrl.noteProperty.setValue(note);
         } catch (Exception ex) {
             ex.printStackTrace();
+            onError(ex.getMessage());
         }
     }
 
@@ -102,6 +104,7 @@ public class Enote extends Application {
                 // gotoViewNoteDetailsPage(???);
             } catch (Exception e) {
                 e.printStackTrace();
+                onError(e.getMessage());
                 exit();
             }
         });
@@ -112,6 +115,14 @@ public class Enote extends Application {
             replaceSceneContent("IPScreen.fxml", 600, 650);
         } catch (Exception ex) {
             ex.printStackTrace();
+            onError(ex.getMessage());
         }
+    }
+
+    public static void onError(String errMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Thông báo");
+        alert.setHeaderText(errMsg);
+        alert.showAndWait();
     }
 }

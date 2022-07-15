@@ -10,64 +10,68 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.IPScreenController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFBE3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pck.enote.controller.IPScreenController">
     <children>
         <Pane layoutX="100.0" layoutY="70.0" prefHeight="465.0" prefWidth="400.0">
             <children>
-                <Pane layoutX="55.0" layoutY="65.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: FAF1C1;">
-                    <children>
-                        <Pane layoutY="84.0" prefHeight="110.0" prefWidth="300.0">
-                            <children>
-                                <Label layoutX="25.0" style="-fx-font-size: 20;" text="Địa chỉ IP (*)" />
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="23.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ip-address_fxaqpy.png" />
-                                    </image>
-                                </ImageView>
-                                <TextField fx:id="ipField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập địa chỉ IP...">
-                           <font>
-                              <Font size="16.0" />
-                           </font></TextField>
-                                <Label fx:id="ipWarningField" layoutX="28.0" layoutY="83.0" style="-fx-font-size: 16;" text="" />
-                            </children>
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Pane>
-                        <Pane layoutY="200.0" prefHeight="110.0" prefWidth="300.0">
-                            <children>
-                                <Label layoutX="25.0" style="-fx-font-size: 20;" text="Số cổng (*)" />
-                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ethernet_scvhsm.png" />
-                                    </image>
-                                </ImageView>
-                                <Label fx:id="portWarningField" layoutX="25.0" layoutY="83.0" prefWidth="250.0" style="-fx-font-size: 16;" text="" />
-                                <TextField fx:id="portField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0" prefWidth="210.0" promptText="Nhập số cổng...">
-                           <font>
-                              <Font size="16.0" />
-                           </font></TextField>
-                            </children>
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Pane>
-                        <Button fx:id="connectButton" layoutX="106.0" layoutY="330.0" mnemonicParsing="false" onAction="#onConnectButtonClicked" text="Kết nối">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Button>
-                        <Label layoutX="104.0" layoutY="15.0" text="Kết nối">
-                     <font>
-                        <Font size="30.0" />
-                     </font></Label>
-                        <Label fx:id="statusAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0" prefHeight="30.0" prefWidth="300.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-                    </children>
+                <Pane layoutX="55.0" layoutY="65.0" prefHeight="400.0" prefWidth="300.0"
+                      style="-fx-background-color: FAF1C1;">
                     <padding>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="20.0"/>
                     </padding>
+                    <Pane layoutY="84.0" prefHeight="110.0" prefWidth="300.0">
+                        <padding>
+                            <Insets right="20.0"/>
+                        </padding>
+                        <Label layoutX="25.0" style="-fx-font-size: 20;" text="Địa chỉ IP (*)"/>
+                        <ImageView fx:id="ivIPIcon" fitHeight="35.0" fitWidth="35.0" layoutX="23.0" layoutY="40.0"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ip-address_fxaqpy.png"/>
+                        </ImageView>
+                        <TextField fx:id="ipField" layoutX="65.0" layoutY="40.0" maxWidth="210.0" prefHeight="32.0"
+                                   prefWidth="210.0" promptText="Nhập địa chỉ IP...">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
+                        <Label fx:id="ipWarningField" layoutX="28.0" layoutY="83.0" style="-fx-font-size: 16;"
+                               text=""/>
+                    </Pane>
+                    <Pane layoutY="200.0" prefHeight="110.0" prefWidth="300.0">
+                        <padding>
+                            <Insets right="20.0"/>
+                        </padding>
+                        <Label layoutX="25.0" style="-fx-font-size: 20;" text="Số cổng (*)"/>
+                        <ImageView fx:id="ivPortIcon" fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="40.0"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <Image url="https://res.cloudinary.com/pck-group/image/upload/v1655628901/MMT/enote/images/ethernet_scvhsm.png"/>
+                        </ImageView>
+                        <Label fx:id="portWarningField" layoutX="25.0" layoutY="83.0" prefWidth="250.0"
+                               style="-fx-font-size: 16;" text=""/>
+                        <TextField fx:id="portField" layoutX="65.0" layoutY="40.0" maxWidth="210.0"
+                                   prefHeight="32.0" prefWidth="210.0" promptText="Nhập số cổng...">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
+                    </Pane>
+                    <Button fx:id="connectButton" layoutX="106.0" layoutY="330.0" mnemonicParsing="false"
+                            onAction="#onConnectButtonClicked" text="Kết nối">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Button>
+                    <Label layoutX="104.0" layoutY="15.0" text="Kết nối">
+                        <font>
+                            <Font size="30.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="statusAlert" alignment="CENTER" contentDisplay="CENTER" layoutY="295.0"
+                           prefHeight="30.0" prefWidth="300.0" textAlignment="CENTER">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
                 </Pane>
                 <Label layoutX="126.0" style="-fx-font-size: 48; -fx-font-weight: 700;" text="E-Note" />
             </children>

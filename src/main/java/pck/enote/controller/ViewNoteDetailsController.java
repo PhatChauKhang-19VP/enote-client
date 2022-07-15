@@ -6,13 +6,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import pck.enote.Enote;
 import pck.enote.api.API;
@@ -28,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ViewNoteDetailsController implements Initializable {
@@ -47,6 +49,7 @@ public class ViewNoteDetailsController implements Initializable {
         noteProperty.addListener(
                 (observableValue, note, t1) -> {
                     if (noteProperty.getValue() != null) {
+                        System.out.println("prop trigger");
                         getNoteDetails(User.getInstance().getUsername(), noteProperty.getValue().getId());
                     }
                 }
@@ -64,7 +67,7 @@ public class ViewNoteDetailsController implements Initializable {
 
         // display content
         String type = note.getType();
-        if (type.contains("plain")) {
+        if (type.contains("text")) {
             String content = new String(note.getContent());
             displayText(content);
         } else if (type.contains("image")) {
@@ -78,6 +81,7 @@ public class ViewNoteDetailsController implements Initializable {
                 displayVideo(videoFile);
             } catch (IOException e) {
                 e.printStackTrace();
+                Enote.onError(e.getMessage());
             }
         } else {
             System.out.println("Loại file " + note.getType() + " không được hỗ trợ");
@@ -99,6 +103,7 @@ public class ViewNoteDetailsController implements Initializable {
             this.content.getChildren().add(imgView);
         } catch (IOException e) {
             e.printStackTrace();
+            Enote.onError(e.getMessage());
         }
     }
 
@@ -118,6 +123,7 @@ public class ViewNoteDetailsController implements Initializable {
             content.getChildren().add(imgView);
         } catch (IOException e) {
             e.printStackTrace();
+            Enote.onError(e.getMessage());
         }
     }
 
@@ -134,6 +140,7 @@ public class ViewNoteDetailsController implements Initializable {
             content.getChildren().add(mediaView);
         } catch (IOException e) {
             e.printStackTrace();
+            Enote.onError(e.getMessage());
         }
     }
 
@@ -147,19 +154,37 @@ public class ViewNoteDetailsController implements Initializable {
 
     public void download(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnDownload) {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setInitialDirectory(new File("./"));
-            File selectedDirectory = directoryChooser.showDialog(Enote.stage);
+            FileChooser fileChooser = new FileChooser();
 
-            if (selectedDirectory.isDirectory()) {
-                File downloadFile = new File(selectedDirectory.getAbsolutePath() + "/" + note.getFilename());
+            String param2 = "*." + note.getExtension();
+            String param1 = String.format("%s file (%s)", note.getExtension().toUpperCase(Locale.ROOT), param2);
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(param1, param2);
+            fileChooser.getExtensionFilters().add(extFilter);
+
+
+            //Opening a dialog box
+            File file = fileChooser.showSaveDialog(Enote.stage);
+
+            if (file != null) {
                 try {
-                    FileUtils.copyInputStreamToFile(new ByteArrayInputStream(note.getContent()), downloadFile);
+                    FileUtils.copyInputStreamToFile(new ByteArrayInputStream(note.getContent()), file);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Enote.onError(e.getMessage());
                 }
 
-                System.out.println("downloaded the file " + note.getFilename() + " , saved to " + selectedDirectory.getAbsolutePath());
+                System.out.println(file.getName() + " , saved to " + file.getAbsolutePath());
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tải xuống thành công");
+                alert.setHeaderText(file.getName() + " lưu tại " + file.getAbsolutePath());
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Tải xuống thất bại");
+                alert.setHeaderText("Không thể tải xuống file, có lỗi xảy ra");
+                alert.showAndWait();
             }
         }
     }

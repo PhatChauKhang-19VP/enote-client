@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import pck.enote.api.API;
 import pck.enote.be.model.Server;
 
@@ -21,6 +23,8 @@ public class IPScreenController implements Initializable {
 
     public Button connectButton;
     public Label statusAlert;
+    public ImageView ivPortIcon;
+    public ImageView ivIPIcon;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -32,6 +36,8 @@ public class IPScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ipField.setText(Server.getInstance().getIP());
         portField.setText(String.valueOf(Server.getInstance().getPort()));
+        ivIPIcon.setImage(new Image("static/icons/ip-address.png"));
+        ivPortIcon.setImage(new Image("static/icons/ethernet.png"));
 
         ipField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {

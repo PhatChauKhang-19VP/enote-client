@@ -1,12 +1,20 @@
 package pck.enote.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.api.req.SignUpReq;
+import pck.enote.api.res.RESPONSE_STATUS;
+import pck.enote.api.res.SignUpRes;
+import pck.enote.be.model.Server;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SignUpPageController implements Initializable {
@@ -18,12 +26,15 @@ public class SignUpPageController implements Initializable {
     public Label usernameWarningField;
     public Label confirmPassWarningField;
 
-    public Label succesAlert;
+    public Label successAlert;
 
     public Button loginButton;
     public Hyperlink signInHyperLink;
     public Hyperlink connectHyperLink;
     public Label connectionInfo;
+    public ImageView ivUserIcon;
+    public ImageView ivPwdIcon;
+    public ImageView ivPwdCfIcon;
 
     protected
     String successMessage = String.format("-fx-text-fill: GREEN;");
@@ -33,13 +44,18 @@ public class SignUpPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        connectionInfo.setText(Server.getInstance().getIP() + "/" + Server.getInstance().getPort());
+        ivUserIcon.setImage(new Image("static/icons/user-icon.png"));
+        ivPwdIcon.setImage(new Image("static/icons/pwd-icon.png"));
+        ivPwdCfIcon.setImage(new Image("static/icons/pwd-icon.png"));
+
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\s")) {
                 newValue = oldValue;
                 usernameField.setText(newValue);
             } else {
                 checkUsernameValid(newValue);
-                succesAlert.setVisible(false);
+                successAlert.setVisible(false);
             }
         });
 
@@ -49,7 +65,7 @@ public class SignUpPageController implements Initializable {
                 passwordField.setText(newValue);
             } else {
                 checkPasswordValid(newValue);
-                succesAlert.setVisible(false);
+                successAlert.setVisible(false);
             }
         });
 
@@ -59,7 +75,7 @@ public class SignUpPageController implements Initializable {
                 confirmPasswordField.setText(newValue);
             } else {
                 checkConfirmPasswordValid(newValue);
-                succesAlert.setVisible(false);
+                successAlert.setVisible(false);
             }
         });
     }
@@ -160,10 +176,26 @@ public class SignUpPageController implements Initializable {
                     && checkPasswordValid(passwordField.getText())
                     && checkConfirmPasswordValid(confirmPasswordField.getText())
             ) {
-                succesAlert.setVisible(true);
                 System.out.println(confirmPassWarningField.getText());
 
-                System.out.println(API.sendReq(new SignUpReq(usernameField.getText(), passwordField.getText())));
+                SignUpRes signUpRes = (SignUpRes) API.sendReq(new SignUpReq(usernameField.getText(), passwordField.getText()));
+                assert signUpRes != null;
+                if (signUpRes.getStatus() == RESPONSE_STATUS.SUCCESS) {
+                    ButtonType btnGotoSignIn = new ButtonType("Đi đến đăng nhập", ButtonBar.ButtonData.YES);
+                    Alert alert = new Alert(
+                            Alert.AlertType.INFORMATION,
+                            "",
+                            btnGotoSignIn);
+                    alert.setTitle("Thông báo");
+                    alert.setHeaderText("Đăng kí thành công tài khoản " + usernameField.getText() + " !");
+                    alert.setOnCloseRequest(Event::consume);
+                    // option != null.
+                    Optional<ButtonType> option = alert.showAndWait();
+
+                    if (option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.YES) {
+                        Enote.gotoSignInPage();
+                    }
+                }
             }
 
             if (!checkUsernameValid(usernameField.getText())) {
@@ -181,15 +213,19 @@ public class SignUpPageController implements Initializable {
     }
 
     public void onSignInHyperLinkClicked(ActionEvent ae) {
-        if(ae.getSource() == signInHyperLink) {
+        if (ae.getSource() == signInHyperLink) {
             pck.enote.Enote.gotoSignInPage();
         }
     }
 
     public void onConnectHyperLinkClicked(ActionEvent ae) {
-        if(ae.getSource() == connectHyperLink) {
+        if (ae.getSource() == connectHyperLink) {
             pck.enote.Enote.gotoConnectScreen();
         }
+    }
+
+    private void displayError() {
+
     }
 }
 
