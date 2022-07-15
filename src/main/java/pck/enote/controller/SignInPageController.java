@@ -1,10 +1,12 @@
 package pck.enote.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.api.req.REQUEST_TYPE;
 import pck.enote.api.req.SignInReq;
@@ -15,6 +17,7 @@ import pck.enote.be.model.Server;
 import pck.enote.be.model.User;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SignInPageController implements Initializable {
@@ -154,7 +157,20 @@ public class SignInPageController implements Initializable {
                     User.getInstance().setUsername(usernameField.getText());
                     User.getInstance().setPassword(passwordField.getText());
 
-                    pck.enote.Enote.gotoViewNotesPage();
+                    ButtonType btnGotoSignIn = new ButtonType("Đi đến trang chính", ButtonBar.ButtonData.YES);
+                    Alert alert = new Alert(
+                            Alert.AlertType.INFORMATION,
+                            "",
+                            btnGotoSignIn);
+                    alert.setTitle("Thông báo");
+                    alert.setHeaderText("Đăng nhập thành công với tài khoản " + usernameField.getText() + " !");
+
+                    // option != null.
+                    Optional<ButtonType> option = alert.showAndWait();
+
+                    if (option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.YES) {
+                        Enote.gotoViewNotesPage();
+                    }
 
                     return;
                 }
