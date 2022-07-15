@@ -68,6 +68,11 @@ public class Note {
         return splitFileName[splitFileName.length - 1];
     }
 
+    public String getExtension(){
+        String[] split = uri.split("\\.");
+        return split[split.length - 1];
+    }
+
     @Override
     public String toString() {
         return "NoteInfo{" +
