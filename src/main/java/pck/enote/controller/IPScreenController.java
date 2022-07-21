@@ -1,5 +1,6 @@
 package pck.enote.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import pck.enote.Enote;
 import pck.enote.api.API;
 import pck.enote.be.model.Server;
 
@@ -19,7 +22,7 @@ public class IPScreenController implements Initializable {
     public Label ipWarningField;
 
     public TextField portField;
-    public Label portWarningField;
+    public Text portWarningField;
 
     public Button connectButton;
     public Label statusAlert;
@@ -100,14 +103,14 @@ public class IPScreenController implements Initializable {
         if (!port.matches(regex)) {
             portField.setStyle(errorStyle);
             portWarningField.setText("Số cổng chỉ bao gồm các kí tự từ 0-9 và nằm trong khoảng 0 - 65535!");
-            portWarningField.setStyle(errorMessage);
+            // portWarningField.setStyle(errorMessage);
 
             return false;
         }
 
         portField.setStyle(successStyle);
         portWarningField.setText("");
-        portWarningField.setStyle(successMessage);
+        // portWarningField.setStyle(successMessage);
 
         return true;
     }
@@ -121,16 +124,18 @@ public class IPScreenController implements Initializable {
                     pck.enote.Enote.gotoSignInPage();
                 } else {
                     statusAlert.setStyle(errorStyle);
-                    statusAlert.setText("Không thể kế nối đến server !");
+                    statusAlert.setText("Không thể kết nối đến server !");
                     statusAlert.setStyle(errorMessage);
                     statusAlert.setVisible(true);
-                    if (!checkIPValid("")) {
-                        new animatefx.animation.Shake(ipField).play();
-                    }
 
-                    if (!checkPortValid("")) {
+                    Platform.runLater(() -> {
+                        ipField.setStyle(errorStyle);
+                        portField.setStyle(errorStyle);
+
+                        new animatefx.animation.Shake(ipField).play();
                         new animatefx.animation.Shake(portField).play();
-                    }
+                    });
+
                     System.out.println("Ket noi ko thanh cong den server");
                 }
             }
