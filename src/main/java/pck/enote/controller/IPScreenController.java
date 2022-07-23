@@ -112,6 +112,7 @@ public class IPScreenController implements Initializable {
         portWarningField.setText("");
         // portWarningField.setStyle(successMessage);
 
+        portWarningField.setWrappingWidth(250);
         return true;
     }
 
