@@ -6,7 +6,7 @@
 
     <groupId>pck</groupId>
     <artifactId>enote-client</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>enote-client</name>
 
     <properties>
@@ -31,9 +31,27 @@
             <version>18.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.1.1</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>18</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>18</version>
+            <classifier>linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>18</version>
+            <classifier>mac</classifier>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
