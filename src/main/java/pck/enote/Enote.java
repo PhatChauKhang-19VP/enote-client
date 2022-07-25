@@ -102,6 +102,7 @@ public class Enote extends Application {
                 gotoConnectScreen();
                 // gotoViewNotesPage();
                 // gotoViewNoteDetailsPage(???);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 onError(e.getMessage());
@@ -119,10 +120,12 @@ public class Enote extends Application {
         }
     }
 
-    public static void onError(String errMsg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Thông báo");
-        alert.setHeaderText(errMsg);
-        alert.showAndWait();
+    public static void onError(String errMsg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(errMsg);
+            alert.showAndWait();
+        });
     }
 }

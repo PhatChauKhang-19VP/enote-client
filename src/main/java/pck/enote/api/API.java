@@ -24,6 +24,10 @@ public class API {
     static DataInputStream dataIn = null;
     private static Socket socket = null;
 
+    public static Socket getSocket() {
+        return socket;
+    }
+
     public static void main(String[] args) throws IOException {
         //        User u = new User("phat", "123");
         //        System.out.println(testConnection());
