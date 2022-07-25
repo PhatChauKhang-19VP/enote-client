@@ -12,6 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import pck.enote.Enote;
 import pck.enote.api.API;
+import pck.enote.api.req.TestConnectionReq;
+import pck.enote.api.res.RESPONSE_STATUS;
+import pck.enote.api.res.TestConnectionRes;
 import pck.enote.be.model.Server;
 
 import java.net.URL;
@@ -122,6 +125,27 @@ public class IPScreenController implements Initializable {
                 Server.getInstance().setIP(ipField.getText());
                 Server.getInstance().setPort(Integer.parseInt(portField.getText()));
                 if (API.connectToServer()) {
+                    //create a new thread to check connection
+                    new Thread(()->{
+                        try {
+                            while (!API.getSocket().isClosed()){
+                                int seconds = 10;
+                                Thread.sleep(seconds*1000);
+                                TestConnectionRes res = (TestConnectionRes) API.sendReq(new TestConnectionReq());
+
+                                if (res == null){
+                                    throw new Exception("Mất kết nối với server");
+                                }
+                                else {
+                                    System.out.println("Server still working");
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Enote.onError(e.getMessage());
+                        }
+                    }).start();
+
                     pck.enote.Enote.gotoSignInPage();
                 } else {
                     statusAlert.setStyle(errorStyle);
