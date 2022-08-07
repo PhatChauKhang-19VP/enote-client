@@ -13,6 +13,8 @@ import pck.enote.controller.ViewNoteDetailsController;
 import pck.enote.fe.model.Note;
 import pck.enote.helper.ScreenConfig;
 
+import java.io.IOException;
+
 import static javafx.application.Platform.exit;
 
 public class Enote extends Application {
@@ -113,6 +115,13 @@ public class Enote extends Application {
 
     public static void gotoConnectScreen() {
         try {
+            if (pck.enote.be.model.Server.getInstance().getSocket() != null){
+                try {
+                    pck.enote.be.model.Server.getInstance().getSocket().close();
+                } catch (IOException e) {
+                    //throw new RuntimeException(e);
+                }
+            }
             replaceSceneContent("IPScreen.fxml", 600, 650);
         } catch (Exception ex) {
             ex.printStackTrace();
