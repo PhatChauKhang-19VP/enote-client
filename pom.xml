@@ -6,7 +6,7 @@
 
     <groupId>pck</groupId>
     <artifactId>enote-client</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>enote-client</name>
 
     <properties>
@@ -29,11 +29,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>18.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
